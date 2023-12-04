@@ -1,6 +1,41 @@
-@FleetRent.Api_HostAddress = http://localhost:5073
+@url = https://localhost:7177
+@carId = 1
 
-GET {{FleetRent.Api_HostAddress}}/weatherforecast/
+###
+GET {{url}}/api/cars/
 Accept: application/json
 
 ###
+GET {{url}}/api/cars/{{carId}}
+Accept: application/json
+
+###
+POST  {{url}}/api/cars/
+Content-Type: application/json
+
+{
+    "brand": "Ferrari",
+    "model": "F40",
+    "productionYear": 1990,
+    "registrationNumber": "F40-1234",
+    "mileage": 1000,
+    "color": "Red",
+    "fuelType": 1
+}
+
+###
+PUT  {{url}}/api/cars/{{carId}}
+Content-Type: application/json
+
+{
+    "brand": "Ferrari",
+    "model": "F40",
+    "productionYear": 1990,
+    "registrationNumber": "F40-1234",
+    "mileage": 1000,
+    "color": "Red",
+    "fuelType": 1
+}
+
+###
+DELETE  {{url}}/api/cars/{{carId}}

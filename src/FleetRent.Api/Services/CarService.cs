@@ -2,10 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using FleetRent.Api.Models;
+using FleetRent.Api.Enums;
 
 namespace FleetRent.Api.Services
 {
-    private static int _id = 0;
+
+    public class CarService
+    {
+        private static int _id = 0;
     // Utwórz listę samochodów
     private static List<Car> _cars = new List<Car>
     {
@@ -44,16 +50,14 @@ namespace FleetRent.Api.Services
         },
     };
 
-    public class CarService
-    {
-        public Task<Ienumerable<Car>> GetAllAsync() => Task.FromResult(_cars.AsEnumerable());
+        public async Task<IEnumerable<Car>> GetAllAsync() => _cars;
 
-        public Task<Car> GetByIdAsync(int id) => Task.FromResult(_cars.SingleOrDefault(x => x.Id == id));
+        public async Task<Car> GetByIdAsync(int id) => _cars.SingleOrDefault(x => x.Id == id);
 
-        public Task<int?> CreateAsync(Car car)
+        public async Task<int?> CreateAsync(Car car)
         {
             bool isRegistrationNumberUnique = _cars.Any(x => x.RegistrationNumber == car.RegistrationNumber);
-            if (!isRegistrationNumberUnique)
+            if (isRegistrationNumberUnique)
             {
                 return default;
             }
@@ -61,10 +65,10 @@ namespace FleetRent.Api.Services
             car.Id = ++_id;
             _cars.Add(car);
 
-            return id;
+            return _id;
         }
 
-        public Task<bool> UpdateAsync(int id, Car car)
+        public async Task<bool> UpdateAsync(int id, Car car)
         {
             Car carToUpdate = _cars.SingleOrDefault(x => x.Id == id);
             if (carToUpdate is null)
@@ -83,7 +87,7 @@ namespace FleetRent.Api.Services
             return true;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             Car carToDelete = _cars.SingleOrDefault(x => x.Id == id);
             if (carToDelete is null)

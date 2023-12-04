@@ -1,0 +1,55 @@
+{
+  "version": "0.2.0",
+    "configurations": [
+        // {
+        //   "name": ".NET Core Launch (Frontend)",
+        //   "type": "coreclr",
+        //   "request": "launch",
+        //   "preLaunchTask": "buildfrontend",
+        //   "program": "${workspaceFolder}/Frontend/bin/Debug/net7.0/Frontend.dll",
+        //   "args": [],
+        //   "cwd": "${workspaceFolder}/Frontend",
+        //   "stopAtEntry": false,
+        //   "serverReadyAction": {
+        //     "action": "openExternally",
+        //     "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+        //   },
+        //   "env": {
+        //     "ASPNETCORE_ENVIRONMENT": "Development"
+        //   },
+        //   "sourceFileMap": {
+        //     "/Views": "${workspaceFolder}/Views"
+        //   }
+        // },
+        {
+            "name": ".NET Core Launch (Backend)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildbackend",
+            "program": "${workspaceFolder}/src/FleetRent.Api/bin/Debug/net8.0/FleetRent.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/FleetRent.Api",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+              "action": "openExternally",
+              "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+              "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+              "/Views": "${workspaceFolder}/Views"
+            }
+          }
+    ],
+    "compounds": [
+      {
+        "name": "Frontend & Backend",
+        "configurations": [
+          // ".NET Core Launch (Frontend)",
+          ".NET Core Launch (Backend)"
+        ],
+        "stopAll": true
+      }
+    ]
+}
