@@ -15,6 +15,5 @@ namespace FleetRent.Api.Models
         public int Mileage { get; set; }
         public string Color { get; set; }
         public FuelType FuelType { get; set; }
-
     }
 }
