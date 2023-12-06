@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FleetRent.Api.Exceptions;
 
 namespace FleetRent.Api.Entities
 {
@@ -52,9 +53,9 @@ namespace FleetRent.Api.Entities
             Phone = phone;
         }
 
-        public void SwitchActivity()
+        public void ChangeActivity(bool isActive)
         {
-            IsActive = !IsActive;
+            IsActive = isActive;
         }
     }
 }
