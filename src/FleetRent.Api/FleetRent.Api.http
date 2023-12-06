@@ -1,6 +1,44 @@
 @url = https://localhost:7177
 @carId = 1
 
+// Users
+@userId = 00000000-0000-0000-0000-000000000001
+
+###
+GET {{url}}/api/users/
+Accept: application/json
+
+###
+GET {{url}}/api/users/{{userId}}
+Accept: application/json
+
+###
+POST  {{url}}/api/users/
+Content-Type: application/json
+
+{
+    "firstName": "Janek",
+    "lastName": "Werbel",
+    "email": "j.werbel@wp.pl",
+    "phone": "123456789"
+}
+
+###
+PUT  {{url}}/api/users/{{userId}}
+Content-Type: application/json
+
+{
+    "firstName": "Janek",
+    "lastName": "Werbel",
+    "email": "j.werbel@wp.pl",
+    "phone": "123456789"
+}
+
+###
+PUT  {{url}}/api/users/{{userId}}/deactivate
+Content-Type: application/json
+
+
 ###
 GET {{url}}/api/cars/
 Accept: application/json

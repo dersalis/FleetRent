@@ -5,5 +5,5 @@ using System.Threading.Tasks;
 
 namespace FleetRent.Api.Commands.User
 {
-    public record CrateUser(Guid UserId, string FirstName, string LastName, string Email, string Phone);
+    public record CreateUser(string FirstName, string LastName, string Email, string Phone);
 }

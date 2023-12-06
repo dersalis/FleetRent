@@ -41,6 +41,13 @@ namespace FleetRent.Api.Entities
             {
                 throw new EmptyEmailException();
             }
+
+            // var emailExist = _users.Any(user => user.Email == email);
+            // if (emailExist)
+            // {
+            //     throw new EmailAlreadyExistException();
+            // }
+
             Email = email;
         }
 

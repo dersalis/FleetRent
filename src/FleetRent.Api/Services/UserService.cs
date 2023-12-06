@@ -10,7 +10,7 @@ namespace FleetRent.Api.Services
 {
     public class UserService
     {
-        private readonly List<User> _users = new() 
+        private readonly static List<User> _users = new() 
         {
             new User(Guid.Parse("00000000-0000-0000-0000-000000000001"), "John", "Doe", "john.doe@wp.pl", "123456789"),
             new User(Guid.Parse("00000000-0000-0000-0000-000000000002"), "Jane", "Doe", "jane.doe@wp.pl", "987654321"),
@@ -40,9 +40,9 @@ namespace FleetRent.Api.Services
             return user;
         }
 
-        public Guid? Create(CrateUser command)
+        public Guid? Create(CreateUser command)
         {
-            var user = new User(command.UserId, command.FirstName, command.LastName, command.Email, command.Phone);
+            var user = new User(Guid.NewGuid(), command.FirstName, command.LastName, command.Email, command.Phone);
             _users.Add(user);
 
             return user.Id;
@@ -64,9 +64,9 @@ namespace FleetRent.Api.Services
             return true;
         }
 
-        public bool Deactivate(DeactivateUser command)
+        public bool Deactivate(Guid id)
         {
-            var existingUser = _users.SingleOrDefault(user => user.Id == command.UserId);
+            var existingUser = _users.SingleOrDefault(user => user.Id == id);
             if (existingUser is null)
             {
                 return false;
