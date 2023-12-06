@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using FleetRent.Api.Enums;
 
-namespace FleetRent.Api.Models
+namespace FleetRent.Api.Entities
 {
     public class Car
     {

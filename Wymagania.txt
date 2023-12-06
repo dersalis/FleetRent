@@ -1,0 +1,17 @@
+1. Firma posiada flotę samochodów osobowych, które są dostępne do wyporzyczenia dla pracowników.
+2. Pracownik może wypożyczyc samochód po wcześniejszej rezerwacji.
+3. Używac samochody można tylko w dni robocze. Na te dni można zarezerwowac auto lub wypozyczyc.
+4. Rezerwacje nalezy potwierdzic dzien przed terminem jesli nie zostanie potwierdzona to dany pojazd moze wypozyczyc ktos inny.
+
+# CAR
+    Marka, model, rok produkcji, rejestracja, przebieg, kolor, typ paliwa
+
+# SCHEDULE
+    rezerwacja, wypozyczenie, pojazd,
+
+# RESERVATION
+    pracownik, data poczatek, data koniec, data potwierdzenia, czy jest potwierdzony
+# HIRE
+    Pracownik, data poczatek, data koniec, licznik poczatek, licznik koniec, data oddania
+
+
