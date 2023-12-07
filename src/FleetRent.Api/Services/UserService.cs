@@ -42,6 +42,12 @@ namespace FleetRent.Api.Services
 
         public Guid? Create(CreateUser command)
         {
+            var emailExist = _users.Any(user => user.Email == command.Email);
+            if (emailExist)
+            {
+                return default;
+            }
+
             var user = new User(Guid.NewGuid(), command.FirstName, command.LastName, command.Email, command.Phone);
             _users.Add(user);
 
@@ -50,6 +56,12 @@ namespace FleetRent.Api.Services
 
         public bool Update(UpdateUser command)
         {
+            var emailExist = _users.Any(user => user.Email == command.Email && user.Id != command.UserId);
+            if (emailExist)
+            {
+                return false;
+            }
+            
             var existingUser = _users.SingleOrDefault(user => user.Id == command.UserId);
             if (existingUser is null)
             {
