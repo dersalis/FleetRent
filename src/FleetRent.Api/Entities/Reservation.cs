@@ -12,27 +12,41 @@ namespace FleetRent.Api.Entities
         public DateTime StartDate { get; private set;}
         public DateTime EndDate { get; private set;}
         public User User { get; private set;}
+        public bool IsActive { get; private set; }
 
         public Reservation(Guid id, DateTime startDate, DateTime endDate, User user)
         {
             Id = id;
-            StartDate = startDate;
-            EndDate = endDate;
-            User = user;
+            ChangeStartDate(startDate);
+            ChangeEndDate(endDate);
+            ChangeUser(user);
+            IsActive = true;
         }
 
+        /// <summary>
+        /// Changes the start date of the reservation.
+        /// </summary>
+        /// <param name="startDate">The new start date.</param>
         public void ChangeStartDate(DateTime startDate)
         {
             ValidateDates(startDate, EndDate);
             StartDate = startDate;
         }
 
+        /// <summary>
+        /// Changes the end date of the reservation.
+        /// </summary>
+        /// <param name="endDate">The new end date.</param>
         public void ChangeEndDate(DateTime endDate)
         {
             ValidateDates(StartDate, endDate);
             EndDate = endDate;
         }
 
+        /// <summary>
+        /// Changes the user associated with the reservation.
+        /// </summary>
+        /// <param name="user">The new user to be associated with the reservation.</param>
         public void ChangeUser(User user)
         {
             if (user is null)
@@ -40,6 +54,15 @@ namespace FleetRent.Api.Entities
                 throw new NullUserException();
             }
             User = user;
+        }
+
+        /// <summary>
+        /// Changes the activity status of the user.
+        /// </summary>
+        /// <param name="isActive">The new activity status.</param>
+        public void ChangeActivity(bool isActive)
+        {
+            IsActive = isActive;
         }
 
         private void ValidateDates(DateTime startDate, DateTime endDate)
