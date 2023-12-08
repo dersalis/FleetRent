@@ -6,6 +6,9 @@ using FleetRent.Api.Exceptions;
 
 namespace FleetRent.Api.Entities
 {
+    /// <summary>
+    /// Represents a user entity.
+    /// </summary>
     public class User
     {
         public Guid Id { get; }
@@ -25,16 +28,30 @@ namespace FleetRent.Api.Entities
             IsActive = true;
         }
 
+        /// <summary>
+        /// Changes the first name of the user.
+        /// </summary>
+        /// <param name="firstName">The new first name.</param>
         public void ChangeFirstName(string firstName)
         {
             FirstName = firstName;
         }
 
+        /// <summary>
+        /// Changes the last name of the user.
+        /// </summary>
+        /// <param name="lastName">The new last name.</param>
         public void ChangeLastName(string lastName)
         {
             LastName = lastName;
         }
 
+        /// <summary>
+        /// Changes the email address of the user.
+        /// </summary>
+        /// <param name="email">The new email address.</param>
+        /// <exception cref="EmptyEmailException">Thrown when the email is null, empty, or consists only of whitespace characters.</exception>
+        /// <exception cref="InvalidEmailException">Thrown when the email is not in a valid format.</exception>
         public void ChangeEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -42,15 +59,19 @@ namespace FleetRent.Api.Entities
                 throw new EmptyEmailException();
             }
 
-            // var emailExist = _users.Any(user => user.Email == email);
-            // if (emailExist)
-            // {
-            //     throw new EmailAlreadyExistException();
-            // }
+            var emailRegex = new System.Text.RegularExpressions.Regex(@"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$");
+            if (!emailRegex.IsMatch(email))
+            {
+                throw new InvalidEmailException();
+            }
 
             Email = email;
         }
 
+        /// <summary>
+        /// Changes the phone number of the user.
+        /// </summary>
+        /// <param name="phone">The new phone number.</param>
         public void ChangePhone(string phone)
         {
             if (string.IsNullOrWhiteSpace(phone))
@@ -60,6 +81,10 @@ namespace FleetRent.Api.Entities
             Phone = phone;
         }
 
+        /// <summary>
+        /// Changes the activity status of the user.
+        /// </summary>
+        /// <param name="isActive">The new activity status.</param>
         public void ChangeActivity(bool isActive)
         {
             IsActive = isActive;
