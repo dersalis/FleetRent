@@ -10,7 +10,7 @@ namespace FleetRent.Api.Exceptions
     /// </summary>
     public class NegativeMileageException : BaseException
     {
-        public NegativeMileageException() : base("Mileage cannot be negative."
+        public NegativeMileageException() : base("Mileage cannot be negative.")
         {}
     }
 }

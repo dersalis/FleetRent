@@ -10,7 +10,7 @@ namespace FleetRent.Api.Services
 {
     public class UserService
     {
-        private readonly static List<User> _users = new() 
+        private readonly static List<User> _users = new () 
         {
             new User(Guid.Parse("00000000-0000-0000-0000-000000000001"), "John", "Doe", "john.doe@wp.pl", "123456789"),
             new User(Guid.Parse("00000000-0000-0000-0000-000000000002"), "Jane", "Doe", "jane.doe@wp.pl", "987654321"),

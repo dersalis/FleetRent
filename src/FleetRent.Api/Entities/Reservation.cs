@@ -6,6 +6,9 @@ using FleetRent.Api.Exceptions;
 
 namespace FleetRent.Api.Entities
 {
+    /// <summary>
+    /// Represents a reservation made by a user.
+    /// </summary>
     public class Reservation
     {
         public Guid Id { get; }
@@ -14,11 +17,26 @@ namespace FleetRent.Api.Entities
         public User User { get; private set;}
         public bool IsActive { get; private set; }
 
+        /// <summary>
+        /// Represents a reservation made by a user.
+        /// </summary>
+        /// <param name="id">The unique identifier of the reservation.</param>
+        /// <param name="startDate">The start date of the reservation.</param>
+        /// <param name="endDate">The end date of the reservation.</param>
+        /// <param name="user">The user who made the reservation.</param>
         public Reservation(Guid id, DateTime startDate, DateTime endDate, User user)
         {
             Id = id;
             ChangeStartDate(startDate);
             ChangeEndDate(endDate);
+            ChangeUser(user);
+            IsActive = true;
+        }
+
+        public Reservation(Guid id, DateTime startDate, User user)
+        {
+            Id = id;
+            ChangeStartDate(startDate);
             ChangeUser(user);
             IsActive = true;
         }
@@ -65,6 +83,13 @@ namespace FleetRent.Api.Entities
             IsActive = isActive;
         }
 
+        /// <summary>
+        /// Validates the dates of a reservation.
+        /// </summary>
+        /// <param name="startDate">The start date of the reservation.</param>
+        /// <param name="endDate">The end date of the reservation.</param>
+        /// <exception cref="InvalidDatesException">Thrown when the start date is greater than the end date.</exception>
+        /// <exception cref="WekendDayException">Thrown when any of the dates falls on a weekend day (Saturday or Sunday).</exception>
         private void ValidateDates(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)

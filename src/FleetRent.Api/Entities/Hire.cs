@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FleetRent.Api.Exceptions;
 
 namespace FleetRent.Api.Entities
 {
@@ -18,6 +19,7 @@ namespace FleetRent.Api.Entities
         public int EndMileage { get; private set; }
         public DateTime ReleaseDate { get; private set; }
         public DateTime ReturnDate { get; private set; }
+        public bool IsActive { get; private set; }
 
         public Hire(Guid id, DateTime startDate, DateTime endDate, User user, int startMileage, int endMileage, DateTime releaseDate, DateTime returnDate)
         {
@@ -29,6 +31,17 @@ namespace FleetRent.Api.Entities
             ChangeEndMileage(endMileage);
             ChangeReleaseDate(releaseDate);
             ChangeReturnDate(returnDate);
+            IsActive = true;
+        }
+
+        public Hire(Guid id, User user, DateTime startDate, DateTime endDate, int startMileage)
+        {
+            Id = id;
+            ChangeStartDate(startDate);
+            ChangeEndDate(endDate);
+            ChangeUser(user);
+            ChangeStartMileage(startMileage);
+            IsActive = true;
         }
 
         /// <summary>
@@ -104,6 +117,20 @@ namespace FleetRent.Api.Entities
             ReturnDate = returnDate;
         }
 
+        /// <summary>
+        /// Changes the activity status of the hire.
+        /// </summary>
+        /// <param name="isActive">The new activity status.</param>
+        public void ChangeActivity(bool isActive)
+        {
+            IsActive = isActive;
+        }
+
+        /// <summary>
+        /// Validates the dates for a hire.
+        /// </summary>
+        /// <param name="startDate">The start date of the hire.</param>
+        /// <param name="endDate">The end date of the hire.</param>
         private void ValidateDates(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)
@@ -120,6 +147,13 @@ namespace FleetRent.Api.Entities
             }
         }
 
+        /// <summary>
+        /// Validates the mileage values for a hire.
+        /// </summary>
+        /// <param name="startMileage">The starting mileage.</param>
+        /// <param name="endMileage">The ending mileage.</param>
+        /// <exception cref="NegativeMileageException">Thrown when either the starting mileage or ending mileage is negative.</exception>
+        /// <exception cref="InvalidMileageException">Thrown when the starting mileage is greater than or equal to the ending mileage.</exception>
         private void ValidateMileage(int startMileage, int endMileage)
         {
             if (startMileage < 0 || endMileage < 0)
