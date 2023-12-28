@@ -189,7 +189,7 @@ namespace FleetRent.Api.Entities
         /// <param name="endDate">The end date of the requested hire or reservation.</param>
         private void CheckCarIsAvailable(DateTime startDate, DateTime endDate)
         {
-            if (_hires.Any(existingHire => existingHire.StartDate <= endDate && existingHire.EndDate >= startDate))
+            if (_hires.Any(existingHire => existingHire.StartDate <= (HireDate)endDate && existingHire.EndDate >= (HireDate)startDate))
             {
                 throw new CarNotAvailableException();
             }
