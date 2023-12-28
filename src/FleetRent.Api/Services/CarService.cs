@@ -202,7 +202,7 @@ namespace FleetRent.Api.Services
                 return false;
             }
 
-            Reservation existingReservation = existingCar.Reservations.SingleOrDefault(x => x.Id == command.Id);
+            Reservation existingReservation = existingCar.Reservations.SingleOrDefault(x => x.Id == (ReservationId)command.Id);
             if (existingReservation is null)
             {
                 return false;
@@ -223,7 +223,7 @@ namespace FleetRent.Api.Services
                 return false;
             }
 
-            Reservation existingReservation = existingCar.Reservations.SingleOrDefault(x => x.Id == command.Id);
+            Reservation existingReservation = existingCar.Reservations.SingleOrDefault(x => x.Id == (ReservationId)command.Id);
             if (existingReservation is null)
             {
                 return false;

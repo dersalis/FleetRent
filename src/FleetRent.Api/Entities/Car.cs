@@ -194,7 +194,7 @@ namespace FleetRent.Api.Entities
                 throw new CarNotAvailableException();
             }
 
-            if (_reservations.Any(existingHire => existingHire.StartDate <= endDate && existingHire.EndDate >= startDate))
+            if (_reservations.Any(existingHire => existingHire.StartDate <= (ReservationDate)endDate && existingHire.EndDate >= (ReservationDate)startDate))
             {
                 throw new CarNotAvailableException();
             }

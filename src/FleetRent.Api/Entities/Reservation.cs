@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FleetRent.Api.Exceptions;
+using FleetRent.Api.ValueObjects;
 
 namespace FleetRent.Api.Entities
 {
@@ -11,11 +8,11 @@ namespace FleetRent.Api.Entities
     /// </summary>
     public class Reservation
     {
-        public Guid Id { get; }
-        public DateTime StartDate { get; private set;}
-        public DateTime EndDate { get; private set;}
+        public ReservationId Id { get; }
+        public ReservationDate StartDate { get; private set;}
+        public ReservationDate EndDate { get; private set;}
         public User User { get; private set;}
-        public bool IsActive { get; private set; }
+        public IsActive IsActive { get; private set; }
 
         /// <summary>
         /// Represents a reservation made by a user.
