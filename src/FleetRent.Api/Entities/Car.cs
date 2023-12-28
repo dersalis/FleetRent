@@ -1,23 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FleetRent.Api.Exceptions;
 using FleetRent.Api.Enums;
+using FleetRent.Api.ValueObjects;
 
 namespace FleetRent.Api.Entities
 {
     public class Car
     {
-        public Guid Id { get; }
-        public string Brand { get; private set; }
-        public string Model { get; private set; }
-        public int ProductionYear { get; private set; }
-        public string RegistrationNumber { get; private set; }
-        public int Mileage { get; private set; }
-        public string Color { get; private set; }
+        public CarId Id { get; }
+        public CarBrand Brand { get; private set; }
+        public CarModel Model { get; private set; }
+        public CarProductionYear ProductionYear { get; private set; }
+        public CarRegistrationNumber RegistrationNumber { get; private set; }
+        public CarMileage Mileage { get; private set; }
+        public CarColor Color { get; private set; }
         public FuelType FuelType { get; private set; }
-        public bool IsActive { get; private set; }
+        public IsActive IsActive { get; private set; }
         public IEnumerable<Hire> Hires => _hires;
         public IEnumerable<Reservation> Reservations => _reservations;
 
@@ -54,11 +51,6 @@ namespace FleetRent.Api.Entities
         /// <param name="brand">The new brand of the car.</param>
         public void ChangeBrand(string brand)
         {
-            if(!string.IsNullOrWhiteSpace(brand))
-            {
-                throw new EmptyBrandException();
-            }
-
             Brand = brand;
         }
 
@@ -68,11 +60,6 @@ namespace FleetRent.Api.Entities
         /// <param name="model">The new model of the car.</param>
         public void ChangeModel(string model)
         {
-            if(!string.IsNullOrWhiteSpace(model))
-            {
-                throw new EmptyModelException();
-            }
-
             Model = model;
         }
 
@@ -83,11 +70,6 @@ namespace FleetRent.Api.Entities
         /// <exception cref="InvalidProductionYearException">Thrown when the production year is invalid.</exception>
         public void ChangeProductionYear(int productionYear)
         {
-            if(productionYear < 1900 || productionYear > DateTime.Now.Year)
-            {
-                throw new InvalidProductionYearException();
-            }
-
             ProductionYear = productionYear;
         }
 
@@ -97,11 +79,6 @@ namespace FleetRent.Api.Entities
         /// <param name="registrationNumber">The new registration number.</param>
         public void ChangeRegistrationNumber(string registrationNumber)
         {
-            if(!string.IsNullOrWhiteSpace(registrationNumber))
-            {
-                throw new EmptyRegistrationNumberException();
-            }
-
             RegistrationNumber = registrationNumber;
         }
 
@@ -112,11 +89,6 @@ namespace FleetRent.Api.Entities
         /// <exception cref="InvalidMileageException">Thrown when the provided mileage is negative.</exception>
         public void ChangeMileage(int mileage)
         {
-            if(mileage < 0)
-            {
-                throw new InvalidMileageException();
-            }
-
             Mileage = mileage;
         }
 

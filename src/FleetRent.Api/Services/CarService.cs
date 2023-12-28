@@ -9,6 +9,7 @@ using FleetRent.Api.Dtos;
 using FleetRent.Api.Commands.Car;
 using FleetRent.Api.Commands.Hire;
 using FleetRent.Api.Commands.Reservation;
+using FleetRent.Api.ValueObjects;
 
 namespace FleetRent.Api.Services
 {
@@ -77,13 +78,13 @@ namespace FleetRent.Api.Services
 
         public bool Update(UpdateCar command)
         {
-            bool isRegistrationNumberUnique = _cars.Any(x => x.RegistrationNumber == command.RegistrationNumber && x.Id != command.Id);
+            bool isRegistrationNumberUnique = _cars.Any(x => x.RegistrationNumber == command.RegistrationNumber && x.Id != (CarId)command.Id);
             if (isRegistrationNumberUnique)
             {
                 return false;
             }
 
-            Car carToUpdate = _cars.SingleOrDefault(x => x.Id == command.Id);
+            Car carToUpdate = _cars.SingleOrDefault(x => x.Id == (CarId)command.Id);
             if (carToUpdate is null)
             {
                 return false;
@@ -104,7 +105,7 @@ namespace FleetRent.Api.Services
 
         public bool Deactivate(SetCarInactive command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == command.Id);
+            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.Id);
             if (existingCar is null)
             {
                 return false;
@@ -117,7 +118,7 @@ namespace FleetRent.Api.Services
 
         public bool StartHire(StartHire command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == command.CarId);
+            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
@@ -139,7 +140,7 @@ namespace FleetRent.Api.Services
 
         public bool EndHire(EndHire command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == command.CarId);
+            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
@@ -161,7 +162,7 @@ namespace FleetRent.Api.Services
 
         public bool RemoveHire(RemoveHire command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == command.CarId);
+            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
@@ -180,7 +181,7 @@ namespace FleetRent.Api.Services
 
         public bool StartReservation(StartReservation command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == command.CarId);
+            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
@@ -200,7 +201,7 @@ namespace FleetRent.Api.Services
 
         public bool EndReservation(EndReservation command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == command.CarId);
+            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
@@ -221,7 +222,7 @@ namespace FleetRent.Api.Services
 
         public bool RemoveReservation(RemoveReservation command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == command.CarId);
+            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;

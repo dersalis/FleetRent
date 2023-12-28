@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FC5A0F67-EAB2-4F75-A7A8-37D4C6BBF552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetRent.Tests.Unit", "tests\FleetRent.Tests.Unit\FleetRent.Tests.Unit.csproj", "{AAB175D7-6120-4811-BA85-94110D22116A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D1493EEE-E441-4169-9492-0A692DE185D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetRent.Api", "src\FleetRent.Api\FleetRent.Api.csproj", "{562564F1-C8CA-4663-8C57-0840BD5861F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +18,19 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAB175D7-6120-4811-BA85-94110D22116A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB175D7-6120-4811-BA85-94110D22116A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB175D7-6120-4811-BA85-94110D22116A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB175D7-6120-4811-BA85-94110D22116A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{562564F1-C8CA-4663-8C57-0840BD5861F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562564F1-C8CA-4663-8C57-0840BD5861F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562564F1-C8CA-4663-8C57-0840BD5861F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562564F1-C8CA-4663-8C57-0840BD5861F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AAB175D7-6120-4811-BA85-94110D22116A} = {FC5A0F67-EAB2-4F75-A7A8-37D4C6BBF552}
+		{562564F1-C8CA-4663-8C57-0840BD5861F9} = {D1493EEE-E441-4169-9492-0A692DE185D9}
 	EndGlobalSection
 EndGlobal
