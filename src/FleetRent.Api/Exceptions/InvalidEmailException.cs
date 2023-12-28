@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace FleetRent.Api.Exceptions
 {
     /// <summary>
@@ -10,7 +5,7 @@ namespace FleetRent.Api.Exceptions
     /// </summary>
     public class InvalidEmailException : BaseException
     {
-        public InvalidEmailException() : base("Invalid email address.")
+        public InvalidEmailException(string email) : base($"Invalid email address: {email}")
         {}
     }
 }

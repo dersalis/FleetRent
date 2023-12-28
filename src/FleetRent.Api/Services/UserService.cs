@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FleetRent.Api.Commands.User;
 using FleetRent.Api.Dtos;
 using FleetRent.Api.Entities;
+using FleetRent.Api.ValueObjects;
 
 namespace FleetRent.Api.Services
 {
@@ -56,13 +53,13 @@ namespace FleetRent.Api.Services
 
         public bool Update(UpdateUser command)
         {
-            var emailExist = _users.Any(user => user.Email == command.Email && user.Id != command.UserId);
+            var emailExist = _users.Any(user => user.Email == command.Email && user.Id != (UserId)command.UserId);
             if (emailExist)
             {
                 return false;
             }
             
-            var existingUser = _users.SingleOrDefault(user => user.Id == command.UserId);
+            var existingUser = _users.SingleOrDefault(user => user.Id == (UserId)command.UserId);
             if (existingUser is null)
             {
                 return false;
@@ -78,7 +75,7 @@ namespace FleetRent.Api.Services
 
         public bool Deactivate(Guid id)
         {
-            var existingUser = _users.SingleOrDefault(user => user.Id == id);
+            var existingUser = _users.SingleOrDefault(user => user.Id == (UserId)id);
             if (existingUser is null)
             {
                 return false;

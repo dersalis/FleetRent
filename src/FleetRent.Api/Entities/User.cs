@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FleetRent.Api.Exceptions;
+using FleetRent.Api.ValueObjects;
 
 namespace FleetRent.Api.Entities
 {
@@ -11,12 +12,12 @@ namespace FleetRent.Api.Entities
     /// </summary>
     public class User
     {
-        public Guid Id { get; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Email { get; private set; }
-        public string Phone { get; private set; }
-        public bool IsActive { get; private set; }
+        public UserId Id { get; }
+        public UserFirstName FirstName { get; private set; }
+        public UserLastName LastName { get; private set; }
+        public Email Email { get; private set; }
+        public Phone Phone { get; private set; }
+        public IsActive IsActive { get; private set; }
 
         public User(Guid id, string firstName, string lastName, string email, string phone)
         {
@@ -54,17 +55,6 @@ namespace FleetRent.Api.Entities
         /// <exception cref="InvalidEmailException">Thrown when the email is not in a valid format.</exception>
         public void ChangeEmail(string email)
         {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                throw new EmptyEmailException();
-            }
-
-            var emailRegex = new System.Text.RegularExpressions.Regex(@"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$");
-            if (!emailRegex.IsMatch(email))
-            {
-                throw new InvalidEmailException();
-            }
-
             Email = email;
         }
 
@@ -74,10 +64,6 @@ namespace FleetRent.Api.Entities
         /// <param name="phone">The new phone number.</param>
         public void ChangePhone(string phone)
         {
-            if (string.IsNullOrWhiteSpace(phone))
-            {
-                throw new EmptyPhoneException();
-            }
             Phone = phone;
         }
 

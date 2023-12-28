@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using FleetRent.Api.Entities;
 using FleetRent.Api.Enums;
 using FleetRent.Api.Dtos;
@@ -124,7 +119,7 @@ namespace FleetRent.Api.Services
                 return false;
             }
 
-            User existingUser = _users.SingleOrDefault(x => x.Id == command.UserId);
+            User existingUser = _users.SingleOrDefault(x => x.Id == (UserId)command.UserId);
             if (existingUser is null)
             {
                 return false;
@@ -187,7 +182,7 @@ namespace FleetRent.Api.Services
                 return false;
             }
 
-            User existingUser = _users.SingleOrDefault(x => x.Id == command.UserId);
+            User existingUser = _users.SingleOrDefault(x => x.Id == (UserId)command.UserId);
             if (existingUser is null)
             {
                 return false;
