@@ -24,7 +24,8 @@ namespace FleetRent.Api.Entities
             ChangeStartDate(startDate);
             ChangeEndDate(endDate);
             ChangeUser(user);
-            ChangeStartMileage(startMileage);
+            //ChangeStartMileage(startMileage);
+            StartMileage = startMileage;
             ChangeEndMileage(endMileage);
             ChangeReleaseDate(releaseDate);
             ChangeReturnDate(returnDate);
@@ -47,7 +48,11 @@ namespace FleetRent.Api.Entities
         /// <param name="startDate">The new start date.</param>
         public void ChangeStartDate(DateTime startDate)
         {
-            ValidateDates(startDate, EndDate);
+            if (EndDate is not null)
+            {
+                ValidateDates(startDate, EndDate);
+            }
+
             StartDate = startDate;
         }
 
@@ -57,7 +62,11 @@ namespace FleetRent.Api.Entities
         /// <param name="endDate">The new end date.</param>
         public void ChangeEndDate(DateTime endDate)
         {
-            ValidateDates(StartDate, endDate);
+            if (StartDate is not null)
+            {
+                ValidateDates(StartDate, endDate);
+            }
+
             EndDate = endDate;
         }
 
@@ -100,7 +109,11 @@ namespace FleetRent.Api.Entities
         /// <param name="releaseDate">The new release date.</param>
         public void ChangeReleaseDate(DateTime releaseDate)
         {
-            ValidateDates(releaseDate, ReturnDate);
+            if (ReturnDate is not null)
+            {
+                ValidateDates(releaseDate, ReturnDate);
+            }
+            
             ReleaseDate = releaseDate;
         }
 
@@ -110,7 +123,11 @@ namespace FleetRent.Api.Entities
         /// <param name="returnDate">The new return date.</param>
         public void ChangeReturnDate(DateTime returnDate)
         {
-            ValidateDates(ReleaseDate, returnDate);
+            if (ReleaseDate is not null)
+            {
+                ValidateDates(ReleaseDate, returnDate);
+            }
+
             ReturnDate = returnDate;
         }
 
@@ -135,11 +152,15 @@ namespace FleetRent.Api.Entities
                 throw new InvalidDatesException();
             }
             
-            for (var date = startDate; date <= endDate; date = date.AddDays(1))
+            if ((DateTime)startDate > DateTime.MinValue && (DateTime)endDate > DateTime.MinValue)
             {
-                if (((DateTime)date).DayOfWeek == DayOfWeek.Saturday || ((DateTime)date).DayOfWeek == DayOfWeek.Sunday)
+                for (var date = startDate; date <= endDate; date = date.AddDays(1))
                 {
-                    throw new WekendDayException();
+                    var dayOfWeek = ((DateTime)date).DayOfWeek;
+                    if (dayOfWeek == DayOfWeek.Saturday || dayOfWeek == DayOfWeek.Sunday)
+                    {
+                        throw new WekendDayException();
+                    }
                 }
             }
         }

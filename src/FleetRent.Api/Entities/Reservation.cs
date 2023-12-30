@@ -44,7 +44,11 @@ namespace FleetRent.Api.Entities
         /// <param name="startDate">The new start date.</param>
         public void ChangeStartDate(DateTime startDate)
         {
-            ValidateDates(startDate, EndDate);
+            if (EndDate is not null)
+            {
+                ValidateDates(startDate, EndDate);
+            }
+            
             StartDate = startDate;
         }
 
@@ -54,7 +58,11 @@ namespace FleetRent.Api.Entities
         /// <param name="endDate">The new end date.</param>
         public void ChangeEndDate(DateTime endDate)
         {
-            ValidateDates(StartDate, endDate);
+            if (StartDate is not null)
+            {
+                ValidateDates(StartDate, endDate);
+            }
+            
             EndDate = endDate;
         }
 
@@ -94,13 +102,17 @@ namespace FleetRent.Api.Entities
                 throw new InvalidDatesException();
             }
             
-            for (var date = startDate; date <= endDate; date = date.AddDays(1))
+            if (startDate > DateTime.MinValue && endDate > DateTime.MinValue)
             {
-                if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+                for (var date = startDate; date <= endDate; date = date.AddDays(1))
                 {
-                    throw new WekendDayException();
+                    if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        throw new WekendDayException();
+                    }
                 }
             }
+
         }
     }
 }
