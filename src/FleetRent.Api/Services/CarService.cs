@@ -1,36 +1,28 @@
 using FleetRent.Api.Entities;
-using FleetRent.Api.Enums;
 using FleetRent.Api.Dtos;
 using FleetRent.Api.Commands.Car;
 using FleetRent.Api.Commands.Hire;
 using FleetRent.Api.Commands.Reservation;
 using FleetRent.Api.ValueObjects;
+using FleetRent.Api.Repositories;
 
 namespace FleetRent.Api.Services
 {
 
-    public class CarService
+    public class CarService : ICarService
     {
-        private static List<Car> _cars = new ()
-        {
-            new Car(Guid.Parse("00000000-0000-0000-0000-000000000001"), "Ford", "Focus", 2010, "KR12345", 100000, "Czerwony", FuelType.Benzyna),
-            new Car(Guid.Parse("00000000-0000-0000-0000-000000000002"), "Opel", "Astra", 2015, "KR54321", 50000, "Czarny", FuelType.Diesel),
-            new Car(Guid.Parse("00000000-0000-0000-0000-000000000003"), "Fiat", "Punto", 2005, "KR67890", 200000, "Niebieski", FuelType.Benzyna),
-            new Car(Guid.Parse("00000000-0000-0000-0000-000000000004"), "Volkswagen", "Golf", 2018, "KR09876", 20000, "Biały", FuelType.Benzyna),
-            new Car(Guid.Parse("00000000-0000-0000-0000-000000000005"), "Toyota", "Yaris", 2019, "KR67890", 10000, "Czerwony", FuelType.Hybryda),
-        };
+        private readonly IRepository<Car> _carRepository;
+        private readonly IRepository<User> _userRepository;
 
-        private readonly static List<User> _users = new () 
+        public CarService(IRepository<Car> carRepository, IRepository<User> userRepository)
         {
-            new User(Guid.Parse("00000000-0000-0000-0000-000000000001"), "John", "Doe", "john.doe@wp.pl", "123456789"),
-            new User(Guid.Parse("00000000-0000-0000-0000-000000000002"), "Jane", "Doe", "jane.doe@wp.pl", "987654321"),
-            new User(Guid.Parse("00000000-0000-0000-0000-000000000003"), "John", "Smith", "john.smith@wp.pl", "123123123"),
-            new User(Guid.Parse("00000000-0000-0000-0000-000000000004"), "Jane", "Smith", "jane.smith@wp.pl", "321321321"),
-        };
+            _carRepository = carRepository;
+            _userRepository = userRepository;
+        }
 
         public IEnumerable<CarDto> GetAll()
         {
-            var cars = _cars
+            var cars = _carRepository.GetAll()
                 .Select(car => new CarDto
                 {
                     Id = car.Id,
@@ -58,7 +50,7 @@ namespace FleetRent.Api.Services
 
         public Guid? Create(CreateCar command)
         {
-            bool isRegistrationNumberUnique = _cars.Any(x => x.RegistrationNumber == command.RegistrationNumber);
+            bool isRegistrationNumberUnique = _carRepository.GetAll().Any(x => x.RegistrationNumber == command.RegistrationNumber);
             if (isRegistrationNumberUnique)
             {
                 return default;
@@ -66,20 +58,20 @@ namespace FleetRent.Api.Services
 
             Guid carId = Guid.NewGuid();
             Car car = new Car(carId, command.Brand, command.Model, command.ProductionYear, command.RegistrationNumber, command.Mileage, command.Color, command.FuelType);
-            _cars.Add(car);
+            _carRepository.Add(car);
 
             return carId;
         }
 
         public bool Update(UpdateCar command)
         {
-            bool isRegistrationNumberUnique = _cars.Any(x => x.RegistrationNumber == command.RegistrationNumber && x.Id != (CarId)command.Id);
+            bool isRegistrationNumberUnique = _carRepository.GetAll().Any(x => x.RegistrationNumber == command.RegistrationNumber && x.Id != (CarId)command.Id);
             if (isRegistrationNumberUnique)
             {
                 return false;
             }
 
-            Car carToUpdate = _cars.SingleOrDefault(x => x.Id == (CarId)command.Id);
+            Car carToUpdate = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.Id);
             if (carToUpdate is null)
             {
                 return false;
@@ -100,7 +92,7 @@ namespace FleetRent.Api.Services
 
         public bool Deactivate(SetCarInactive command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.Id);
+            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.Id);
             if (existingCar is null)
             {
                 return false;
@@ -113,13 +105,13 @@ namespace FleetRent.Api.Services
 
         public bool StartHire(StartHire command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
             }
 
-            User existingUser = _users.SingleOrDefault(x => x.Id == (UserId)command.UserId);
+            User existingUser = _userRepository.GetAll().SingleOrDefault(x => x.Id == (UserId)command.UserId);
             if (existingUser is null)
             {
                 return false;
@@ -135,7 +127,7 @@ namespace FleetRent.Api.Services
 
         public bool EndHire(EndHire command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
@@ -157,7 +149,7 @@ namespace FleetRent.Api.Services
 
         public bool RemoveHire(RemoveHire command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
@@ -176,13 +168,13 @@ namespace FleetRent.Api.Services
 
         public bool StartReservation(StartReservation command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
             }
 
-            User existingUser = _users.SingleOrDefault(x => x.Id == (UserId)command.UserId);
+            User existingUser = _userRepository.GetAll().SingleOrDefault(x => x.Id == (UserId)command.UserId);
             if (existingUser is null)
             {
                 return false;
@@ -196,7 +188,7 @@ namespace FleetRent.Api.Services
 
         public bool EndReservation(EndReservation command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;
@@ -217,7 +209,7 @@ namespace FleetRent.Api.Services
 
         public bool RemoveReservation(RemoveReservation command)
         {
-            Car existingCar = _cars.SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
             if (existingCar is null)
             {
                 return false;

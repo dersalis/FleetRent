@@ -1,23 +1,23 @@
 using FleetRent.Api.Commands.User;
 using FleetRent.Api.Dtos;
 using FleetRent.Api.Entities;
+using FleetRent.Api.Repositories;
 using FleetRent.Api.ValueObjects;
 
 namespace FleetRent.Api.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
-        private readonly static List<User> _users = new () 
+        private readonly IRepository<User> _userRepository;
+
+        public UserService(IRepository<User> userRepository)
         {
-            new User(Guid.Parse("00000000-0000-0000-0000-000000000001"), "John", "Doe", "john.doe@wp.pl", "123456789"),
-            new User(Guid.Parse("00000000-0000-0000-0000-000000000002"), "Jane", "Doe", "jane.doe@wp.pl", "987654321"),
-            new User(Guid.Parse("00000000-0000-0000-0000-000000000003"), "John", "Smith", "john.smith@wp.pl", "123123123"),
-            new User(Guid.Parse("00000000-0000-0000-0000-000000000004"), "Jane", "Smith", "jane.smith@wp.pl", "321321321"),
-        };
+            _userRepository = userRepository;
+        }
 
         public IEnumerable<UserDto> GetAll()
         {
-            var users = _users
+            var users = _userRepository.GetAll()
                 .Select(user => new UserDto
                 {
                     Id = user.Id,
@@ -39,27 +39,27 @@ namespace FleetRent.Api.Services
 
         public Guid? Create(CreateUser command)
         {
-            var emailExist = _users.Any(user => user.Email == command.Email);
+            var emailExist = _userRepository.GetAll().Any(user => user.Email == command.Email);
             if (emailExist)
             {
                 return default;
             }
 
             var user = new User(Guid.NewGuid(), command.FirstName, command.LastName, command.Email, command.Phone);
-            _users.Add(user);
+            _userRepository.Add(user);
 
             return user.Id;
         }
 
         public bool Update(UpdateUser command)
         {
-            var emailExist = _users.Any(user => user.Email == command.Email && user.Id != (UserId)command.UserId);
+            var emailExist = _userRepository.GetAll().Any(user => user.Email == command.Email && user.Id != (UserId)command.UserId);
             if (emailExist)
             {
                 return false;
             }
             
-            var existingUser = _users.SingleOrDefault(user => user.Id == (UserId)command.UserId);
+            var existingUser = _userRepository.GetAll().SingleOrDefault(user => user.Id == (UserId)command.UserId);
             if (existingUser is null)
             {
                 return false;
@@ -75,7 +75,7 @@ namespace FleetRent.Api.Services
 
         public bool Deactivate(Guid id)
         {
-            var existingUser = _users.SingleOrDefault(user => user.Id == (UserId)id);
+            var existingUser = _userRepository.GetAll().SingleOrDefault(user => user.Id == (UserId)id);
             if (existingUser is null)
             {
                 return false;
