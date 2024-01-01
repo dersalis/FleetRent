@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FleetRent.Api.Commands.User;
-using FleetRent.Api.Entities;
 using FleetRent.Api.Services;
 using FleetRent.Api.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +9,12 @@ namespace FleetRent.Api.Controllers
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
-        private readonly UserService _userService = new();
+        private readonly IUserService _userService;
+
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         [HttpGet]
         public ActionResult<IEnumerable<UserDto>> GetAll()
