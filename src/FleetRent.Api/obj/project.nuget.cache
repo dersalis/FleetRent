@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "KcL62KReca5mgkVovuW0UOhxkYu6thulS+6oYJAH37yVZ6pv1eXX71OA6miTI1QeGJ2ar0vFuxrc7E5X6sXhWA==",
+  "dgSpecHash": "g7GMS0oBOHvx1uISK53X30o4cpIOtIU0LEYNNktW+TmOCuf8s6n8O8zaaeDCqOjgd8UuXQZlEcO9xcltRdTnyg==",
   "success": true,
   "projectFilePath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Api/FleetRent.Api.csproj",
   "expectedPackageFiles": [
     "/Users/damianruta/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/damianruta/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.0/microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
+    "/Users/damianruta/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "/Users/damianruta/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
     "/Users/damianruta/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "/Users/damianruta/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",

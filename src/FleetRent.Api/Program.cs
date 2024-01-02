@@ -1,13 +1,12 @@
-using FleetRent.Api.Entities;
-using FleetRent.Api.Repositories;
-using FleetRent.Api.Services;
+using FleetRent.Core;
+using FleetRent.Infrastructure;
+using FleetRent.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IRepository<Car>, InMemoryCarRepository>();
-builder.Services.AddScoped<IRepository<User>, InMemoryUserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddCore();
+builder.Services.AddInfrastructure();
+builder.Services.AddApplication();
 
 builder.Services.AddControllers();
 

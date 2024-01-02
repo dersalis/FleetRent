@@ -1,6 +1,5 @@
-using Xunit;
 using Shouldly;
-using FleetRent.Api.ValueObjects;
+using FleetRent.Core.ValueObjects;
 
 namespace FleetRent.Tests.Unit.ValueObjects
 {

@@ -1,6 +1,6 @@
-using FleetRent.Api.Commands.User;
-using FleetRent.Api.Services;
-using FleetRent.Api.Dtos;
+using FleetRent.Application.Commands.User;
+using FleetRent.Application.Dtos;
+using FleetRent.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleetRent.Api.Controllers

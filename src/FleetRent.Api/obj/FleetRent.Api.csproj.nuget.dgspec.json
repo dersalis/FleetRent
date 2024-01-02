@@ -26,7 +26,17 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Application/FleetRent.Application.csproj": {
+                "projectPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Application/FleetRent.Application.csproj"
+              },
+              "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/FleetRent.Core.csproj": {
+                "projectPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/FleetRent.Core.csproj"
+              },
+              "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Infrastructure/FleetRent.Infrastructure.csproj": {
+                "projectPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Infrastructure/FleetRent.Infrastructure.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -59,6 +69,194 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Application/FleetRent.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Application/FleetRent.Application.csproj",
+        "projectName": "FleetRent.Application",
+        "projectPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Application/FleetRent.Application.csproj",
+        "packagesPath": "/Users/damianruta/.nuget/packages/",
+        "outputPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/damianruta/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/FleetRent.Core.csproj": {
+                "projectPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/FleetRent.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/FleetRent.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/FleetRent.Core.csproj",
+        "projectName": "FleetRent.Core",
+        "projectPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/FleetRent.Core.csproj",
+        "packagesPath": "/Users/damianruta/.nuget/packages/",
+        "outputPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/damianruta/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Infrastructure/FleetRent.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Infrastructure/FleetRent.Infrastructure.csproj",
+        "projectName": "FleetRent.Infrastructure",
+        "projectPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Infrastructure/FleetRent.Infrastructure.csproj",
+        "packagesPath": "/Users/damianruta/.nuget/packages/",
+        "outputPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/damianruta/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/FleetRent.Core.csproj": {
+                "projectPath": "/Users/damianruta/Workspace/Projects/FleetRent/src/FleetRent.Core/FleetRent.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

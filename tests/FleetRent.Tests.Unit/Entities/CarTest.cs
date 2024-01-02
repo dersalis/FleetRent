@@ -1,5 +1,5 @@
-using FleetRent.Api.Entities;
-using FleetRent.Api.Enums;
+using FleetRent.Core.Entities;
+using FleetRent.Core.Enums;
 
 namespace FleetRent.Tests.Unit.Entities
 {

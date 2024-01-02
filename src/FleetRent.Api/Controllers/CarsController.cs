@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc; 
-using FleetRent.Api.Services;
-using FleetRent.Api.Entities;
-using FleetRent.Api.Dtos;
-using FleetRent.Api.Commands.Car;
-using FleetRent.Api.Commands.Hire;
-using FleetRent.Api.Commands.Reservation;
+using FleetRent.Application.Commands.Car;
+using FleetRent.Application.Commands.Hire;
+using FleetRent.Application.Commands.Reservation;
+using FleetRent.Application.Dtos;
+using FleetRent.Application.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FleetRent.Api.Controllers
 {

@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FleetRent.Api.Exceptions;
-using FleetRent.Api.ValueObjects;
+using FleetRent.Core.Exceptions;
+using FleetRent.Core.ValueObjects;
 using Shouldly;
 
 namespace FleetRent.Tests.Unit.ValueObjects

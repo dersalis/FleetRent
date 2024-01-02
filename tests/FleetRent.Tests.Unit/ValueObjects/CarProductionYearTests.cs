@@ -1,7 +1,6 @@
-using Xunit;
+using FleetRent.Core.Exceptions;
+using FleetRent.Core.ValueObjects;
 using Shouldly;
-using FleetRent.Api.ValueObjects;
-using FleetRent.Api.Exceptions;
 
 namespace FleetRent.Tests.Unit.ValueObjects
 {
