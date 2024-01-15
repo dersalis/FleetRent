@@ -8,17 +8,17 @@ namespace FleetRent.Core.Entities
     /// </summary>
     public class Hire
     {
-        public Guid Id { get; }
+        public HireId Id { get; }
         public HireDate StartDate { get; private set;}
         public HireDate EndDate { get; private set;}
         public User User { get; private set;}
-        public int StartMileage { get; private set; }
-        public int EndMileage { get; private set; }
+        public CarMileage StartMileage { get; private set; }
+        public CarMileage EndMileage { get; private set; }
         public HireDate ReleaseDate { get; private set; }
         public HireDate ReturnDate { get; private set; }
         public IsActive IsActive { get; private set; }
 
-        public Hire(Guid id, DateTime startDate, DateTime endDate, User user, int startMileage, int endMileage, DateTime releaseDate, DateTime returnDate)
+        public Hire(HireId id, HireDate startDate, HireDate endDate, User user, CarMileage startMileage, CarMileage endMileage, HireDate releaseDate, HireDate returnDate)
         {
             Id = id;
             ChangeStartDate(startDate);

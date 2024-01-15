@@ -33,7 +33,7 @@ namespace FleetRent.Core.Entities
         /// <param name="mileage">The mileage of the car.</param>
         /// <param name="color">The color of the car.</param>
         /// <param name="fuelType">The fuel type of the car.</param>
-        public Car(Guid id, string brand, string model, int productionYear, string registrationNumber, int mileage, string color, FuelType fuelType)
+        public Car(CarId id, CarBrand brand, CarModel model, CarProductionYear productionYear, CarRegistrationNumber registrationNumber, CarMileage mileage, CarColor color, FuelType fuelType)
         {
             Id = id;
             Brand = brand;

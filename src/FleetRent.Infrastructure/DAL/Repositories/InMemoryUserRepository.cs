@@ -2,7 +2,7 @@ using FleetRent.Core.Entities;
 using FleetRent.Core.Repositories;
 using FleetRent.Core.ValueObjects;
 
-namespace FleetRent.Infrastructure.Repositories
+namespace FleetRent.Infrastructure.DAL.Repositories
 {
     public class InMemoryUserRepository : IRepository<User>
     {
