@@ -60,8 +60,8 @@ namespace FleetRent.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:guid}")]
-        public IActionResult Delete([FromRoute] Guid id)
+        [HttpPut("{id:guid}/deactivate")]
+        public IActionResult Deactivate([FromRoute] Guid id)
         {
             SetCarInactive command = new SetCarInactive(id);
 
@@ -73,10 +73,10 @@ namespace FleetRent.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut("start-hire")]
-        public IActionResult StartHire([FromBody] StartHire command)
+        [HttpPut("{id:guid}/start-hire")]
+        public IActionResult StartHire([FromRoute] Guid id, [FromBody] StartHire command)
         {
-            bool isStarted = _carService.StartHire(command);
+            bool isStarted = _carService.StartHire(command with { CarId = id });
             if (!isStarted)
             {
                 return NotFound();
@@ -84,10 +84,10 @@ namespace FleetRent.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut("end-hire")]
-        public IActionResult EndHire([FromBody] EndHire command)
+        [HttpPut("{id:guid}/end-hire")]
+        public IActionResult EndHire([FromRoute] Guid id, [FromBody] EndHire command)
         {
-            bool isEnded = _carService.EndHire(command);
+            bool isEnded = _carService.EndHire(command with { CarId = id });
             if (!isEnded)
             {
                 return NotFound();
@@ -95,10 +95,10 @@ namespace FleetRent.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut("remove-hire")]
-        public IActionResult RemoveHire([FromBody] RemoveHire command)
+        [HttpPut("{id:guid}/remove-hire")]
+        public IActionResult RemoveHire([FromRoute] Guid id, [FromBody] RemoveHire command)
         {
-            bool isRemoved = _carService.RemoveHire(command);
+            bool isRemoved = _carService.RemoveHire(command with { CarId = id });
             if (!isRemoved)
             {
                 return NotFound();

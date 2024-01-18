@@ -15,6 +15,8 @@ namespace FleetRent.Infrastructure.DAL
 
             services.AddScoped<IRepository<Car>, PostgresCarRepository>();
             services.AddScoped<IRepository<User>, PostgresUserRepository>();
+            services.AddScoped<IRepository<Hire>, PostgresHireRepository>();
+            services.AddScoped<IRepository<Reservation>, PostrgresReservationRepository>();
             services.AddHostedService<DatabaseInitializer>();
 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

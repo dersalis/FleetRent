@@ -28,7 +28,8 @@ namespace FleetRent.Infrastructure.DAL.Configurations
             builder.Property(h => h.EndDate)
                 .HasConversion(
                     endDate => endDate.Value,
-                    endDate => new HireDate(endDate));
+                    endDate => new HireDate(endDate))
+                    .IsRequired(false);
 
             builder.Property(h => h.StartMileage)
                 .HasConversion(
@@ -38,7 +39,8 @@ namespace FleetRent.Infrastructure.DAL.Configurations
             builder.Property(h => h.EndMileage)
                 .HasConversion(
                     endMileage => endMileage.Value,
-                    endMileage => new CarMileage(endMileage));
+                    endMileage => new CarMileage(endMileage))
+                    .IsRequired(false);
 
             builder.Property(h => h.ReleaseDate)
                 .HasConversion(
@@ -48,7 +50,8 @@ namespace FleetRent.Infrastructure.DAL.Configurations
             builder.Property(h => h.ReturnDate)
                 .HasConversion(
                     returnDate => returnDate.Value,
-                    returnDate => new HireDate(returnDate));
+                    returnDate => new HireDate(returnDate))
+                    .IsRequired(false);
 
             builder.Property(h => h.IsActive)
                 .HasConversion(

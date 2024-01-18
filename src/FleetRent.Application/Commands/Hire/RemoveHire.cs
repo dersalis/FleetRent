@@ -1,4 +1,4 @@
 namespace FleetRent.Application.Commands.Hire
 {
-    public record RemoveHire(Guid Id, Guid CarId);
+    public record RemoveHire(Guid HireId, Guid CarId);
 }

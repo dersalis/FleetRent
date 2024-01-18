@@ -14,9 +14,9 @@ namespace FleetRent.Core.Entities
         // public User User { get; private set;}
         public UserId UserId { get; private set;}
         public CarMileage StartMileage { get; private set; }
-        public CarMileage EndMileage { get; private set; }
+        public CarMileage? EndMileage { get; private set; }
         public HireDate ReleaseDate { get; private set; }
-        public HireDate ReturnDate { get; private set; }
+        public HireDate? ReturnDate { get; private set; }
         public IsActive IsActive { get; private set; }
 
         public Hire(HireId id, HireDate startDate, HireDate endDate, UserId userId, CarMileage startMileage, CarMileage endMileage, HireDate releaseDate, HireDate returnDate)
@@ -90,7 +90,11 @@ namespace FleetRent.Core.Entities
         /// <param name="startMileage">The new start mileage.</param>
         public void ChangeStartMileage(int startMileage)
         {
-            ValidateMileage(startMileage, EndMileage);
+            if(EndMileage is not null)
+            {
+                ValidateMileage(startMileage, EndMileage);
+            }
+            
             StartMileage = startMileage;
         }
 
@@ -100,7 +104,11 @@ namespace FleetRent.Core.Entities
         /// <param name="endMileage">The new end mileage.</param>
         public void ChangeEndMileage(int endMileage)
         {
-            ValidateMileage(StartMileage, endMileage);
+            if(StartMileage is not null)
+            {
+                ValidateMileage(StartMileage, endMileage);
+            }
+            
             EndMileage = endMileage;
         }
 

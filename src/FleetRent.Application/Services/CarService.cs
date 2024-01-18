@@ -13,11 +13,19 @@ namespace FleetRent.Application.Services
     {
         private readonly IRepository<Car> _carRepository;
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Hire> _hireRepository;
+        private readonly IRepository<Reservation> _reservationRepository;
 
-        public CarService(IRepository<Car> carRepository, IRepository<User> userRepository)
+        public CarService(
+            IRepository<Car> carRepository, 
+            IRepository<User> userRepository,
+            IRepository<Hire> hireRepository,
+            IRepository<Reservation> reservationRepository)
         {
             _carRepository = carRepository;
             _userRepository = userRepository;
+            _hireRepository = hireRepository;
+            _reservationRepository = reservationRepository;
         }
 
         public IEnumerable<CarDto> GetAll()
@@ -85,7 +93,7 @@ namespace FleetRent.Application.Services
             carToUpdate.ChangeColor(command.Color);
             carToUpdate.ChangeFuelType(command.FuelType);
 
-            // Zapisz zmiany w bazie danych
+            _carRepository.Update(carToUpdate);
 
             return true;
         }
@@ -99,6 +107,8 @@ namespace FleetRent.Application.Services
             }
 
             existingCar.ChangeActivity(false);
+
+            _carRepository.Update(existingCar);
 
             return true;
         }
@@ -122,6 +132,8 @@ namespace FleetRent.Application.Services
 
             existingCar.AddHire(hire);
 
+            _carRepository.Update(existingCar);
+
             return true;
         }
 
@@ -133,7 +145,7 @@ namespace FleetRent.Application.Services
                 return false;
             }
 
-            Hire existingHire = existingCar.Hires.SingleOrDefault(x => x.Id == (HireId)command.Id);
+            Hire existingHire = existingCar.Hires.SingleOrDefault(x => x.Id == (HireId)command.HireId);
             if (existingHire is null)
             {
                 return false;
@@ -142,7 +154,7 @@ namespace FleetRent.Application.Services
             existingHire.ChangeEndMileage(command.EndMileage);
             existingHire.ChangeReturnDate(command.ReturnDate);
 
-            // Zapisz zmiany w bazie danych
+            _carRepository.Update(existingCar);
 
             return true;
         }
@@ -155,13 +167,16 @@ namespace FleetRent.Application.Services
                 return false;
             }
 
-            Hire existingHire = existingCar.Hires.SingleOrDefault(x => x.Id == (HireId)command.Id);
+            Hire existingHire = existingCar.Hires.SingleOrDefault(x => x.Id == (HireId)command.HireId);
             if (existingHire is null)
             {
                 return false;
             }
 
             existingCar.RemoveHire(existingHire);
+            existingHire.ChangeActivity(false);
+
+            _carRepository.Update(existingCar);
 
             return true;
         }

@@ -3,6 +3,7 @@ using System;
 using FleetRent.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FleetRent.Infrastructure.DAL.Migrations
 {
     [DbContext(typeof(FleetRentDbContext))]
-    partial class FleetRentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240118193007_MI2030")]
+    partial class MI2030
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,10 +71,10 @@ namespace FleetRent.Infrastructure.DAL.Migrations
                     b.Property<Guid?>("CarId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("EndMileage")
+                    b.Property<int>("EndMileage")
                         .HasColumnType("integer");
 
                     b.Property<bool>("IsActive")
@@ -80,7 +83,7 @@ namespace FleetRent.Infrastructure.DAL.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime?>("ReturnDate")
+                    b.Property<DateTime>("ReturnDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("StartDate")

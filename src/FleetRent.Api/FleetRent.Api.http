@@ -1,15 +1,18 @@
 @url = https://localhost:7177
-@carId = 1
+@carIdToGet = 00000000-0000-0000-0000-000000000001
+@carIdToUpdate = ba9d01a5-81e7-48f4-a973-a2753eed2941
 
 // Users
-@userId = 00000000-0000-0000-0000-000000000001
+@userIdToGet = 00000000-0000-0000-0000-000000000001
+@userIdToUpdate = b24141ce-a942-43b4-93e6-a5db990d50df
+
 
 ###
 GET {{url}}/api/users/
 Accept: application/json
 
 ###
-GET {{url}}/api/users/{{userId}}
+GET {{url}}/api/users/{{userIdToGet}}
 Accept: application/json
 
 ###
@@ -20,22 +23,22 @@ Content-Type: application/json
     "firstName": "Janek",
     "lastName": "Werbel",
     "email": "j.werbel@wp.pl",
-    "phone": "123456789"
+    "phone": "+48111222333"
 }
 
 ###
-PUT  {{url}}/api/users/{{userId}}
+PUT  {{url}}/api/users/{{userIdToUpdate}}
 Content-Type: application/json
 
 {
     "firstName": "Janek",
     "lastName": "Werbel",
-    "email": "j.werbel@wp.pl",
-    "phone": "123456789"
+    "email": "j2.werbel@wp.pl",
+    "phone": "+48999888777"
 }
 
 ###
-PUT  {{url}}/api/users/{{userId}}/deactivate
+PUT  {{url}}/api/users/{{userIdToUpdate}}/deactivate
 Content-Type: application/json
 
 
@@ -44,7 +47,7 @@ GET {{url}}/api/cars/
 Accept: application/json
 
 ###
-GET {{url}}/api/cars/{{carId}}
+GET {{url}}/api/cars/{{carIdToGet}}
 Accept: application/json
 
 ###
@@ -55,25 +58,58 @@ Content-Type: application/json
     "brand": "Ferrari",
     "model": "F40",
     "productionYear": 1990,
-    "registrationNumber": "F40-1234",
+    "registrationNumber": "TE1234",
     "mileage": 1000,
     "color": "Red",
     "fuelType": 1
 }
 
 ###
-PUT  {{url}}/api/cars/{{carId}}
+PUT  {{url}}/api/cars/{{carIdToUpdate}}
 Content-Type: application/json
 
 {
     "brand": "Ferrari",
     "model": "F40",
     "productionYear": 1990,
-    "registrationNumber": "F40-1234",
+    "registrationNumber": "TE0987",
     "mileage": 1000,
-    "color": "Red",
+    "color": "Blue",
     "fuelType": 1
 }
 
 ###
-DELETE  {{url}}/api/cars/{{carId}}
+PUT   {{url}}/api/cars/{{carIdToUpdate}}/deactivate
+Content-Type: application/json
+
+###
+PUT   {{url}}/api/cars/{{carIdToUpdate}}/start-hire
+Content-Type: application/json
+
+{
+    "carId": "{{carIdToUpdate}}",
+    "userId": "{{userIdToUpdate}}",
+    "startDate": "2024-01-23",
+    "endDate": "2024-01-24",
+    "startMileage": 20450
+}
+
+###
+PUT   {{url}}/api/cars/{{carIdToUpdate}}/end-hire
+Content-Type: application/json
+
+{
+    "hireId": "c2ef1dd0-1fea-4027-a7f9-3fa2dd84b517",
+    "carId": "{{carIdToUpdate}}",
+    "endMileage": 21406,
+    "returnDate": "2024-01-24"
+}
+
+###
+PUT   {{url}}/api/cars/{{carIdToUpdate}}/remove-hire
+Content-Type: application/json
+
+{
+    "hireId": "c2ef1dd0-1fea-4027-a7f9-3fa2dd84b517",
+    "carId": "{{carIdToUpdate}}"
+}

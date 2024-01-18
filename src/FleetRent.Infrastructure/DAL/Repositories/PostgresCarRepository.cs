@@ -1,6 +1,7 @@
 using FleetRent.Core.Entities;
 using FleetRent.Core.Repositories;
 using FleetRent.Core.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace FleetRent.Infrastructure.DAL.Repositories
 {
@@ -29,7 +30,10 @@ namespace FleetRent.Infrastructure.DAL.Repositories
             => _context.Cars.SingleOrDefault(car => car.Id == (CarId)id);
 
         public IEnumerable<Car> GetAll()
-            => _context.Cars.ToList();
+            => _context.Cars
+            .Include(i => i.Hires)
+            .Include(i => i.Reservations)
+            .ToList();
 
         public void Update(Car entity)
         {
