@@ -111,7 +111,7 @@ namespace FleetRent.Tests.Unit.Entities
             var user = new User(Guid.NewGuid(), "John", "Doe", "jd@wp.pl", "+48123456789");
             var startDate = new DateTime(2023, 12, 26);
             var endDate = startDate.AddDays(1);
-            var hire = new Hire(Guid.NewGuid(), startDate, endDate, user, 100, 200, startDate, endDate);
+            var hire = new Hire(Guid.NewGuid(), startDate, endDate, user.Id, 100, 200, startDate, endDate);
 
             // Act
             car.AddHire(hire);
@@ -129,7 +129,7 @@ namespace FleetRent.Tests.Unit.Entities
             var user = new User(Guid.NewGuid(), "John", "Doe", "jd@wp.pl", "+48123456789");
             var startDate = new DateTime(2023, 12, 26);
             var endDate = startDate.AddDays(1);
-            var hire = new Hire(Guid.NewGuid(), startDate, endDate, user, 100, 200, startDate, endDate);
+            var hire = new Hire(Guid.NewGuid(), startDate, endDate, user.Id, 100, 200, startDate, endDate);
 
             car.AddHire(hire);
 
@@ -150,7 +150,7 @@ namespace FleetRent.Tests.Unit.Entities
             var user = new User(Guid.NewGuid(), "John", "Doe", "jd@wp.pl", "+48123456789");
             var startDate = new DateTime(2023, 12, 26);
             var endDate = startDate.AddDays(1);
-            var reservation = new Reservation(Guid.NewGuid(), startDate, endDate, user);
+            var reservation = new Reservation(Guid.NewGuid(), startDate, endDate, user.Id);
 
             // Act
             car.AddReservation(reservation);
@@ -169,7 +169,7 @@ namespace FleetRent.Tests.Unit.Entities
             var user = new User(Guid.NewGuid(), "John", "Doe", "jd@wp.pl", "+48123456789");
             var startDate = new DateTime(2023, 12, 26);
             var endDate = startDate.AddDays(1);
-            var reservation = new Reservation(Guid.NewGuid(), startDate, endDate, user);
+            var reservation = new Reservation(Guid.NewGuid(), startDate, endDate, user.Id);
 
             car.AddReservation(reservation);
 

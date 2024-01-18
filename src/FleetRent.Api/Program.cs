@@ -5,8 +5,8 @@ using FleetRent.Application;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCore();
-builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 
 builder.Services.AddControllers();
 

@@ -15,6 +15,11 @@ namespace FleetRent.Infrastructure.DAL.Configurations
                     id => id.Value,
                     id => new HireId(id));
 
+            builder.Property(h => h.UserId)
+                .HasConversion(
+                    userId => userId.Value,
+                    userId => new UserId(userId));
+
             builder.Property(h => h.StartDate)
                 .HasConversion(
                     startDate => startDate.Value,

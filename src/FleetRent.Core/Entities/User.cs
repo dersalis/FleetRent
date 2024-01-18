@@ -14,7 +14,7 @@ namespace FleetRent.Core.Entities
         public Phone Phone { get; private set; }
         public IsActive IsActive { get; private set; }
 
-        public User(Guid id, string firstName, string lastName, string email, string phone)
+        public User(UserId id, UserFirstName firstName, UserLastName lastName, Email email, Phone phone)
         {
             Id = id;
             ChangeFirstName(firstName);

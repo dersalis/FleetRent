@@ -1,6 +1,4 @@
-using FleetRent.Core.Entities;
-using FleetRent.Core.Repositories;
-using FleetRent.Infrastructure.Repositories;
+using FleetRent.Infrastructure.DAL;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FleetRent.Infrastructure
@@ -9,8 +7,9 @@ namespace FleetRent.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddSingleton<IRepository<Car>, InMemoryCarRepository>();
-            services.AddSingleton<IRepository<User>, InMemoryUserRepository>();
+            // services.AddSingleton<IRepository<Car>, InMemoryCarRepository>();
+            // services.AddSingleton<IRepository<User>, InMemoryUserRepository>();
+            services.AddPostgres();
 
             return services;
         }

@@ -29,6 +29,11 @@ namespace FleetRent.Infrastructure.DAL.Configurations
                     email => email.Value,
                     email => new Email(email));
 
+            builder.Property(u => u.Phone)
+                .HasConversion(
+                    phone => phone.Value,
+                    phone => new Phone(phone));
+
             builder.Property(u => u.IsActive)
                 .HasConversion(
                     isActive => isActive.Value,

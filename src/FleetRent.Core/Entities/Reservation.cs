@@ -11,7 +11,7 @@ namespace FleetRent.Core.Entities
         public ReservationId Id { get; }
         public ReservationDate StartDate { get; private set;}
         public ReservationDate EndDate { get; private set;}
-        public User User { get; private set;}
+        public UserId UserId { get; private set;}
         public IsActive IsActive { get; private set; }
 
         /// <summary>
@@ -21,20 +21,20 @@ namespace FleetRent.Core.Entities
         /// <param name="startDate">The start date of the reservation.</param>
         /// <param name="endDate">The end date of the reservation.</param>
         /// <param name="user">The user who made the reservation.</param>
-        public Reservation(Guid id, DateTime startDate, DateTime endDate, User user)
+        public Reservation(ReservationId id, ReservationDate startDate, ReservationDate endDate, UserId userId)
         {
             Id = id;
             ChangeStartDate(startDate);
             ChangeEndDate(endDate);
-            ChangeUser(user);
+            ChangeUser(userId);
             IsActive = true;
         }
 
-        public Reservation(Guid id, DateTime startDate, User user)
+        public Reservation(ReservationId id, ReservationDate startDate, UserId userId)
         {
             Id = id;
             ChangeStartDate(startDate);
-            ChangeUser(user);
+            ChangeUser(userId);
             IsActive = true;
         }
 
@@ -70,13 +70,13 @@ namespace FleetRent.Core.Entities
         /// Changes the user associated with the reservation.
         /// </summary>
         /// <param name="user">The new user to be associated with the reservation.</param>
-        public void ChangeUser(User user)
+        public void ChangeUser(UserId userId)
         {
-            if (user is null)
+            if (userId is null)
             {
                 throw new NullUserException();
             }
-            User = user;
+            UserId = userId;
         }
 
         /// <summary>

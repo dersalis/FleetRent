@@ -70,6 +70,8 @@ namespace FleetRent.Application.Services
             existingUser.ChangeEmail(command.Email);
             existingUser.ChangePhone(command.Phone);
 
+            _userRepository.Update(existingUser);
+
             return true;
         }
 
@@ -82,6 +84,8 @@ namespace FleetRent.Application.Services
             }
 
             existingUser.ChangeActivity(false);
+
+            _userRepository.Update(existingUser);
 
             return true;
         }

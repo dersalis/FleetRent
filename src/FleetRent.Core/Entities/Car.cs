@@ -43,6 +43,7 @@ namespace FleetRent.Core.Entities
             Mileage = mileage;
             Color = color;
             FuelType = fuelType;
+            IsActive = true;
         }
 
         /// <summary>

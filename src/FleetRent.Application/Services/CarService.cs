@@ -117,7 +117,7 @@ namespace FleetRent.Application.Services
                 return false;
             }
 
-            Hire hire = new Hire(Guid.NewGuid(), existingUser, command.StartDate, command.EndDate, command.StartMileage);
+            Hire hire = new Hire(Guid.NewGuid(), existingUser.Id, command.StartDate, command.EndDate, command.StartMileage);
             hire.ChangeReleaseDate(command.StartDate);
 
             existingCar.AddHire(hire);
@@ -133,7 +133,7 @@ namespace FleetRent.Application.Services
                 return false;
             }
 
-            Hire existingHire = existingCar.Hires.SingleOrDefault(x => x.Id == command.Id);
+            Hire existingHire = existingCar.Hires.SingleOrDefault(x => x.Id == (HireId)command.Id);
             if (existingHire is null)
             {
                 return false;
@@ -155,7 +155,7 @@ namespace FleetRent.Application.Services
                 return false;
             }
 
-            Hire existingHire = existingCar.Hires.SingleOrDefault(x => x.Id == command.Id);
+            Hire existingHire = existingCar.Hires.SingleOrDefault(x => x.Id == (HireId)command.Id);
             if (existingHire is null)
             {
                 return false;
@@ -180,7 +180,7 @@ namespace FleetRent.Application.Services
                 return false;
             }
 
-            Reservation reservation = new Reservation(Guid.NewGuid(), command.StartDate, existingUser);
+            Reservation reservation = new Reservation(Guid.NewGuid(), command.StartDate, existingUser.Id);
             existingCar.AddReservation(reservation);
 
             return true;

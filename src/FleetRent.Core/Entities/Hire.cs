@@ -11,19 +11,20 @@ namespace FleetRent.Core.Entities
         public HireId Id { get; }
         public HireDate StartDate { get; private set;}
         public HireDate EndDate { get; private set;}
-        public User User { get; private set;}
+        // public User User { get; private set;}
+        public UserId UserId { get; private set;}
         public CarMileage StartMileage { get; private set; }
         public CarMileage EndMileage { get; private set; }
         public HireDate ReleaseDate { get; private set; }
         public HireDate ReturnDate { get; private set; }
         public IsActive IsActive { get; private set; }
 
-        public Hire(HireId id, HireDate startDate, HireDate endDate, User user, CarMileage startMileage, CarMileage endMileage, HireDate releaseDate, HireDate returnDate)
+        public Hire(HireId id, HireDate startDate, HireDate endDate, UserId userId, CarMileage startMileage, CarMileage endMileage, HireDate releaseDate, HireDate returnDate)
         {
             Id = id;
             ChangeStartDate(startDate);
             ChangeEndDate(endDate);
-            ChangeUser(user);
+            ChangeUser(userId);
             //ChangeStartMileage(startMileage);
             StartMileage = startMileage;
             ChangeEndMileage(endMileage);
@@ -32,12 +33,12 @@ namespace FleetRent.Core.Entities
             IsActive = true;
         }
 
-        public Hire(Guid id, User user, DateTime startDate, DateTime endDate, int startMileage)
+        public Hire(HireId id, UserId userId, HireDate startDate, HireDate endDate, CarMileage startMileage)
         {
             Id = id;
             ChangeStartDate(startDate);
             ChangeEndDate(endDate);
-            ChangeUser(user);
+            ChangeUser(userId);
             ChangeStartMileage(startMileage);
             IsActive = true;
         }
@@ -74,13 +75,13 @@ namespace FleetRent.Core.Entities
         /// Changes the user associated with the hire.
         /// </summary>
         /// <param name="user">The new user to be associated with the hire.</param>
-        public void ChangeUser(User user)
+        public void ChangeUser(UserId userId)
         {
-            if (user is null)
+            if (userId is null)
             {
                 throw new NullUserException();
             }
-            User = user;
+            UserId = userId;
         }
 
         /// <summary>
