@@ -106,10 +106,10 @@ namespace FleetRent.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut("start-reservation")]
-        public IActionResult StartReservation([FromBody] StartReservation command)
+        [HttpPut("{id:guid}/start-reservation")]
+        public IActionResult StartReservation([FromRoute] Guid id, [FromBody] StartReservation command)
         {
-            bool isStarted = _carService.StartReservation(command);
+            bool isStarted = _carService.StartReservation(command with { CarId = id });
             if (!isStarted)
             {
                 return NotFound();
@@ -117,21 +117,21 @@ namespace FleetRent.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut("end-reservation")]
-        public IActionResult EndReservation([FromBody] EndReservation command)
-        {
-            bool isEnded = _carService.EndReservation(command);
-            if (!isEnded)
-            {
-                return NotFound();
-            }
-            return NoContent();
-        }
+        // [HttpPut("{id:guid}/end-reservation")]
+        // public IActionResult EndReservation([FromRoute] Guid id, [FromBody] EndReservation command)
+        // {
+        //     bool isEnded = _carService.EndReservation(command with { CarId = id });
+        //     if (!isEnded)
+        //     {
+        //         return NotFound();
+        //     }
+        //     return NoContent();
+        // }
 
-        [HttpPut("remove-reservation")]
-        public IActionResult RemoveReservation([FromBody] RemoveReservation command)
+        [HttpPut("{id:guid}/remove-reservation")]
+        public IActionResult RemoveReservation([FromRoute] Guid id, [FromBody] RemoveReservation command)
         {
-            bool isRemoved = _carService.RemoveReservation(command);
+            bool isRemoved = _carService.RemoveReservation(command with { CarId = id });
             if (!isRemoved)
             {
                 return NotFound();

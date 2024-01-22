@@ -28,7 +28,8 @@ namespace FleetRent.Infrastructure.DAL.Configurations
             builder.Property(r => r.EndDate)
                 .HasConversion(
                     endDate => endDate.Value,
-                    endDate => new ReservationDate(endDate));
+                    endDate => new ReservationDate(endDate))
+                    .IsRequired(false);
 
             builder.Property(r => r.IsActive)
                 .HasConversion(

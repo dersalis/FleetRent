@@ -16,7 +16,7 @@ namespace FleetRent.Application.Services
         bool EndHire(EndHire command);
         bool RemoveHire(RemoveHire command);
         bool StartReservation(StartReservation command);
-        bool EndReservation(EndReservation command);
+        // bool EndReservation(EndReservation command);
         bool RemoveReservation(RemoveReservation command);
     }
 }

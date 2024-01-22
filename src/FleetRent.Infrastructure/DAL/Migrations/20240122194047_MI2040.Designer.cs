@@ -3,6 +3,7 @@ using System;
 using FleetRent.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FleetRent.Infrastructure.DAL.Migrations
 {
     [DbContext(typeof(FleetRentDbContext))]
-    partial class FleetRentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122194047_MI2040")]
+    partial class MI2040
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

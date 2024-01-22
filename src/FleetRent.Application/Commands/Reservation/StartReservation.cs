@@ -1,4 +1,8 @@
 namespace FleetRent.Application.Commands.Reservation
 {
-    public record StartReservation(Guid CarId, DateTime StartDate, Guid UserId);
+    public record StartReservation(
+        Guid CarId, 
+        DateTime StartDate,
+        DateTime EndDate,
+        Guid UserId);
 }

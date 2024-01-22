@@ -195,32 +195,34 @@ namespace FleetRent.Application.Services
                 return false;
             }
 
-            Reservation reservation = new Reservation(Guid.NewGuid(), command.StartDate, existingUser.Id);
+            Reservation reservation = new Reservation(Guid.NewGuid(), command.StartDate, command.EndDate, existingUser.Id);
             existingCar.AddReservation(reservation);
 
-            return true;
-        }
-
-        public bool EndReservation(EndReservation command)
-        {
-            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
-            if (existingCar is null)
-            {
-                return false;
-            }
-
-            Reservation existingReservation = existingCar.Reservations.SingleOrDefault(x => x.Id == (ReservationId)command.Id);
-            if (existingReservation is null)
-            {
-                return false;
-            }
-
-            existingReservation.ChangeEndDate(command.EndDate);
-
-            // Zapisz zmiany w bazie danych
+            _carRepository.Update(existingCar);
 
             return true;
         }
+
+        // public bool EndReservation(EndReservation command)
+        // {
+        //     Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
+        //     if (existingCar is null)
+        //     {
+        //         return false;
+        //     }
+
+        //     Reservation existingReservation = existingCar.Reservations.SingleOrDefault(x => x.Id == (ReservationId)command.Id);
+        //     if (existingReservation is null)
+        //     {
+        //         return false;
+        //     }
+
+        //     existingReservation.ChangeEndDate(command.EndDate);
+
+        //     // Zapisz zmiany w bazie danych
+
+        //     return true;
+        // }
 
         public bool RemoveReservation(RemoveReservation command)
         {
@@ -230,13 +232,16 @@ namespace FleetRent.Application.Services
                 return false;
             }
 
-            Reservation existingReservation = existingCar.Reservations.SingleOrDefault(x => x.Id == (ReservationId)command.Id);
+            Reservation existingReservation = existingCar.Reservations.SingleOrDefault(x => x.Id == (ReservationId)command.ReservationId);
             if (existingReservation is null)
             {
                 return false;
             }
 
             existingCar.RemoveReservation(existingReservation);
+            existingReservation.ChangeActivity(false);
+
+            _carRepository.Update(existingCar);
 
             return true;
         }

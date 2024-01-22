@@ -10,7 +10,7 @@ namespace FleetRent.Core.Entities
     {
         public ReservationId Id { get; }
         public ReservationDate StartDate { get; private set;}
-        public ReservationDate EndDate { get; private set;}
+        public ReservationDate? EndDate { get; private set;}
         public UserId UserId { get; private set;}
         public IsActive IsActive { get; private set; }
 

@@ -113,3 +113,23 @@ Content-Type: application/json
     "hireId": "c2ef1dd0-1fea-4027-a7f9-3fa2dd84b517",
     "carId": "{{carIdToUpdate}}"
 }
+
+###
+PUT   {{url}}/api/cars/{{carIdToUpdate}}/start-reservation
+Content-Type: application/json
+
+{
+    "carId": "{{carIdToUpdate}}",
+    "startDate": "2024-01-23",
+    "endDate": "2024-01-24",
+    "userId": "{{userIdToUpdate}}"
+}
+
+###
+PUT   {{url}}/api/cars/{{carIdToUpdate}}/remove-reservation
+Content-Type: application/json
+
+{
+    "ReservationId": "c4755dae-354a-4ec0-b584-6edccc47884c",
+    "carId": "{{carIdToUpdate}}"
+}
