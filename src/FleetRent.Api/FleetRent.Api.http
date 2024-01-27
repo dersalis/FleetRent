@@ -31,10 +31,10 @@ PUT  {{url}}/api/users/{{userIdToUpdate}}
 Content-Type: application/json
 
 {
-    "firstName": "Janek",
-    "lastName": "Werbel",
-    "email": "j2.werbel@wp.pl",
-    "phone": "+48999888777"
+    "firstName": "Olga",
+    "lastName": "Niespokojna",
+    "email": "o.nispokojna@wp.pl",
+    "phone": "+48546754327"
 }
 
 ###

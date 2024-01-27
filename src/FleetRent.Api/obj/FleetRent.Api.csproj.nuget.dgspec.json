@@ -246,11 +246,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.Extensions.DependencyInjection": {
+            "Humanizer": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[2.14.1, )"
             },
-            "Microsoft.Extensions.Hosting.Abstractions": {
+            "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[8.0.0, )"
             },
@@ -271,6 +271,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
