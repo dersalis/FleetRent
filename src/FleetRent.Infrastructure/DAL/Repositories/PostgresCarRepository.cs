@@ -14,31 +14,31 @@ namespace FleetRent.Infrastructure.DAL.Repositories
             _context = context;
         }
 
-        public void Add(Car entity)
+        public async Task AddAsync(Car entity)
         {
-            _context.Cars.Add(entity);
-            _context.SaveChanges();
+            await _context.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Car entity)
+        public async Task DeleteAsync(Car entity)
         {
-            _context.Cars.Remove(entity);
-            _context.SaveChanges();
+            _context.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Car Get(Guid id)
-            => _context.Cars.SingleOrDefault(car => car.Id == (CarId)id);
+        public Task<Car> GetAsync(Guid id)
+            => _context.Cars.SingleOrDefaultAsync(car => car.Id == (CarId)id);
 
-        public IEnumerable<Car> GetAll()
-            => _context.Cars
+        public async Task<IEnumerable<Car>> GetAllAsync()
+            => await _context.Cars
             .Include(i => i.Hires)
             .Include(i => i.Reservations)
-            .ToList();
+            .ToListAsync();
 
-        public void Update(Car entity)
+        public async Task UpdateAsync(Car entity)
         {
-            _context.Cars.Update(entity);
-            _context.SaveChanges();
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

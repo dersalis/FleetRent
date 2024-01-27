@@ -1,6 +1,7 @@
 using FleetRent.Core.Entities;
 using FleetRent.Core.Repositories;
 using FleetRent.Core.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace FleetRent.Infrastructure.DAL.Repositories
 {
@@ -13,28 +14,33 @@ namespace FleetRent.Infrastructure.DAL.Repositories
             _context = context;
         }
 
-        public void Add(Reservation entity)
+        public async Task AddAsync(Reservation entity)
         {
-            _context.Reservations.Add(entity);
-            _context.SaveChanges();
+            await _context.Reservations.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Reservation entity)
+        public async Task DeleteAsync(Reservation entity)
         {
             _context.Reservations.Remove(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Reservation Get(Guid id)
-            => _context.Reservations.SingleOrDefault(car => car.Id == (ReservationId)id);
+        public Task<Reservation> GetAsync(Guid id)
+            => _context.Reservations
+                .SingleOrDefaultAsync(car => car.Id == (ReservationId)id);
 
-        public IEnumerable<Reservation> GetAll()
-            => _context.Reservations.ToList();
-
-        public void Update(Reservation entity)
+        public async Task<IEnumerable<Reservation>> GetAllAsync()
         {
-            _context.Reservations.Update(entity);
-            _context.SaveChanges();
+            var reservations = await _context.Reservations.ToListAsync();
+
+            return reservations.AsEnumerable();
+        }
+
+        public async Task UpdateAsync(Reservation entity)
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

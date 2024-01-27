@@ -7,16 +7,16 @@ namespace FleetRent.Application.Services
 {
     public interface ICarService
     {
-        IEnumerable<CarDto> GetAll();
-        CarDto GetById(Guid id);
-        Guid? Create(CreateCar command);
-        bool Update(UpdateCar command);
-        bool Deactivate(SetCarInactive command);
-        bool StartHire(StartHire command);
-        bool EndHire(EndHire command);
-        bool RemoveHire(RemoveHire command);
-        bool StartReservation(StartReservation command);
-        // bool EndReservation(EndReservation command);
-        bool RemoveReservation(RemoveReservation command);
+        Task<IEnumerable<CarDto>> GetAllAsync();
+        Task<CarDto> GetByIdAsync(Guid id);
+        Task<Guid?> CreateAsync(CreateCar command);
+        Task<bool> UpdateAsync(UpdateCar command);
+        Task<bool> DeactivateAsync(SetCarInactive command);
+        Task<bool> StartHireAsync(StartHire command);
+        Task<bool> EndHireAsync(EndHire command);
+        Task<bool> RemoveHireAsync(RemoveHire command);
+        Task<bool> StartReservationAsync(StartReservation command);
+        // Task<bool> EndReservationAsync(EndReservation command);
+        Task<bool> RemoveReservationAsync(RemoveReservation command);
     }
 }

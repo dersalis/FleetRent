@@ -1,6 +1,7 @@
 using FleetRent.Core.Entities;
 using FleetRent.Core.Repositories;
 using FleetRent.Core.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace FleetRent.Infrastructure.DAL.Repositories
 {
@@ -12,28 +13,32 @@ namespace FleetRent.Infrastructure.DAL.Repositories
             _context = context;
         }
 
-        public void Add(User entity)
+        public async Task AddAsync(User entity)
         {
-            _context.Users.Add(entity);
-            _context.SaveChanges();
+            await _context.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(User entity)
+        public async Task DeleteAsync(User entity)
         {
-            _context.Users.Remove(entity);
-            _context.SaveChanges();
+            _context.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public User Get(Guid id)
-            => _context.Users.SingleOrDefault(user => user.Id == (UserId)id);
+        public Task<User> GetAsync(Guid id)
+            => _context.Users
+                .SingleOrDefaultAsync(user => user.Id == (UserId)id);
 
-        public IEnumerable<User> GetAll()
-            => _context.Users.ToList();
-
-        public void Update(User entity)
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            _context.Users.Update(entity);
-            _context.SaveChanges();
+            var users = await _context.Users.ToListAsync();
+            return users.AsEnumerable();
+        }
+
+        public async Task UpdateAsync(User entity)
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

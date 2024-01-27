@@ -17,16 +17,16 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UserDto>> GetAll()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
         {
-            var users = _userService.GetAll();
+            var users = await _userService.GetAllAsync();
             return Ok(users);
         }
 
         [HttpGet("{id:guid}")]
-        public ActionResult<UserDto> GetById([FromRoute] Guid id)
+        public async Task<ActionResult<UserDto>> GetById([FromRoute] Guid id)
         {
-            var user = _userService.GetById(id);
+            var user = await _userService.GetByIdAsync(id);
             if (user is null)
             {
                 return NotFound();
@@ -36,9 +36,9 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Guid> Create([FromBody] CreateUser command)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateUser command)
         {
-            var userId = _userService.Create(command);
+            var userId = await _userService.CreateAsync(command);
             
             return userId is not null 
                 ? CreatedAtAction(nameof(GetById), new { id = userId }, null)
@@ -46,9 +46,9 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public ActionResult Update([FromRoute] Guid id, [FromBody] UpdateUser command)
+        public async Task<ActionResult> Update([FromRoute] Guid id, [FromBody] UpdateUser command)
         {
-            var isUpdated = _userService.Update(command with { UserId = id });
+            var isUpdated = await _userService.UpdateAsync(command with { UserId = id });
 
             return isUpdated 
                 ? NoContent() 
@@ -56,9 +56,9 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPut("{id:guid}/deactivate")]
-        public ActionResult Deactivate([FromRoute] Guid id)
+        public async Task<ActionResult> Deactivate([FromRoute] Guid id)
         {
-            var isUpdated = _userService.Deactivate(id);
+            var isUpdated = await _userService.DeactivateAsync(id);
 
             return isUpdated 
                 ? NoContent() 

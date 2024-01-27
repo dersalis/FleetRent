@@ -15,10 +15,11 @@ namespace FleetRent.Application.Services
             _userRepository = userRepository;
         }
 
-        public IEnumerable<UserDto> GetAll()
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            var users = _userRepository.GetAll()
-                .Select(user => new UserDto
+            var users = await _userRepository.GetAllAsync();
+
+            return users.Select(user => new UserDto
                 {
                     Id = user.Id,
                     FullName = $"{user.FirstName} {user.LastName}",
@@ -26,40 +27,44 @@ namespace FleetRent.Application.Services
                     Phone = user.Phone,
                     IsActive = user.IsActive
                 });
-
-            return users;
         }
 
-        public UserDto GetById(Guid id)
+        public async Task<UserDto> GetByIdAsync(Guid id)
         {
-            var user = GetAll().SingleOrDefault(user => user.Id == id);
+            var user = await GetAllAsync();
             
-            return user;
+            return user.SingleOrDefault(user => user.Id == id);
         }
 
-        public Guid? Create(CreateUser command)
+        public async Task<Guid?> CreateAsync(CreateUser command)
         {
-            var emailExist = _userRepository.GetAll().Any(user => user.Email == command.Email);
+            var emailExist = (await _userRepository.GetAllAsync())
+                .Any(user => user.Email == command.Email);
+
             if (emailExist)
             {
                 return default;
             }
 
             var user = new User(Guid.NewGuid(), command.FirstName, command.LastName, command.Email, command.Phone);
-            _userRepository.Add(user);
+            await _userRepository.AddAsync(user);
 
             return user.Id;
         }
 
-        public bool Update(UpdateUser command)
+        public async Task<bool> UpdateAsync(UpdateUser command)
         {
-            var emailExist = _userRepository.GetAll().Any(user => user.Email == command.Email && user.Id != (UserId)command.UserId);
+            var emailExist = (await _userRepository.GetAllAsync())
+                .Any(user => user.Email == command.Email && user.Id != (UserId)command.UserId);
+
             if (emailExist)
             {
                 return false;
             }
             
-            var existingUser = _userRepository.GetAll().SingleOrDefault(user => user.Id == (UserId)command.UserId);
+            var existingUser = (await _userRepository.GetAllAsync())
+                .SingleOrDefault(user => user.Id == (UserId)command.UserId);
+            
             if (existingUser is null)
             {
                 return false;
@@ -70,14 +75,16 @@ namespace FleetRent.Application.Services
             existingUser.ChangeEmail(command.Email);
             existingUser.ChangePhone(command.Phone);
 
-            _userRepository.Update(existingUser);
+            await _userRepository.UpdateAsync(existingUser);
 
             return true;
         }
 
-        public bool Deactivate(Guid id)
+        public async Task<bool> DeactivateAsync(Guid id)
         {
-            var existingUser = _userRepository.GetAll().SingleOrDefault(user => user.Id == (UserId)id);
+            var existingUser = (await _userRepository.GetAllAsync())
+                .SingleOrDefault(user => user.Id == (UserId)id);
+
             if (existingUser is null)
             {
                 return false;
@@ -85,7 +92,7 @@ namespace FleetRent.Application.Services
 
             existingUser.ChangeActivity(false);
 
-            _userRepository.Update(existingUser);
+            await _userRepository.UpdateAsync(existingUser);
 
             return true;
         }

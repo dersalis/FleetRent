@@ -20,10 +20,10 @@ POST  {{url}}/api/users/
 Content-Type: application/json
 
 {
-    "firstName": "Janek",
-    "lastName": "Werbel",
-    "email": "j.werbel@wp.pl",
-    "phone": "+48111222333"
+    "firstName": "Karolina",
+    "lastName": "Domagala",
+    "email": "k.domagala@wp.pl",
+    "phone": "+48354876508"
 }
 
 ###

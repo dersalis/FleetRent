@@ -21,19 +21,22 @@ namespace FleetRent.Infrastructure.DAL.Repositories
             };
         }
 
-        public void Add(Car entity)
-            => _cars.Add(entity);
+        public Task AddAsync(Car entity)
+        {
+            _cars.Add(entity);
+            return Task.CompletedTask;
+        }
 
-        public void Delete(Car entity)
-            => _cars.Remove(entity);
+        public Task DeleteAsync(Car entity)
+            => Task.FromResult(_cars.Remove(entity));
 
-        public Car Get(Guid id)
-            => _cars.SingleOrDefault(car => car.Id == (CarId)id);
+        public Task<Car> GetAsync(Guid id)
+            => Task.FromResult(_cars.SingleOrDefault(car => car.Id == (CarId)id));
 
-        public IEnumerable<Car> GetAll()
-            => _cars;
+        public Task<IEnumerable<Car>> GetAllAsync()
+            => Task.FromResult(_cars.AsEnumerable());
 
-        public void Update(Car entity)
-        {}
+        public Task UpdateAsync(Car entity)
+            => Task.CompletedTask;
     }
 }

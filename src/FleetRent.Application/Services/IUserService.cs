@@ -5,10 +5,10 @@ namespace FleetRent.Application.Services
 {
     public interface IUserService
     {
-        IEnumerable<UserDto> GetAll();
-        UserDto GetById(Guid id);
-        Guid? Create(CreateUser command);
-        bool Update(UpdateUser command);
-        bool Deactivate(Guid id);
+        Task<IEnumerable<UserDto>> GetAllAsync();
+        Task<UserDto> GetByIdAsync(Guid id);
+        Task<Guid?> CreateAsync(CreateUser command);
+        Task<bool> UpdateAsync(UpdateUser command);
+        Task<bool> DeactivateAsync(Guid id);
     }
 }

@@ -28,9 +28,9 @@ namespace FleetRent.Application.Services
             _reservationRepository = reservationRepository;
         }
 
-        public IEnumerable<CarDto> GetAll()
+        public async Task<IEnumerable<CarDto>> GetAllAsync()
         {
-            var cars = _carRepository.GetAll()
+            var cars = (await _carRepository.GetAllAsync())
                 .Select(car => new CarDto
                 {
                     Id = car.Id,
@@ -49,16 +49,18 @@ namespace FleetRent.Application.Services
             return cars;
         }
 
-        public CarDto GetById(Guid id)
+        public async Task<CarDto> GetByIdAsync(Guid id)
         {
-            var car = GetAll().SingleOrDefault(car => car.Id == id);
+            var car = (await GetAllAsync()).SingleOrDefault(car => car.Id == id);
             
             return car;
         }
 
-        public Guid? Create(CreateCar command)
+        public async Task<Guid?> CreateAsync(CreateCar command)
         {
-            bool isRegistrationNumberUnique = _carRepository.GetAll().Any(x => x.RegistrationNumber == command.RegistrationNumber);
+            bool isRegistrationNumberUnique = (await _carRepository.GetAllAsync())
+                .Any(x => x.RegistrationNumber == command.RegistrationNumber);
+
             if (isRegistrationNumberUnique)
             {
                 return default;
@@ -66,20 +68,24 @@ namespace FleetRent.Application.Services
 
             Guid carId = Guid.NewGuid();
             Car car = new Car(carId, command.Brand, command.Model, command.ProductionYear, command.RegistrationNumber, command.Mileage, command.Color, command.FuelType);
-            _carRepository.Add(car);
+            await _carRepository.AddAsync(car);
 
             return carId;
         }
 
-        public bool Update(UpdateCar command)
+        public async Task<bool> UpdateAsync(UpdateCar command)
         {
-            bool isRegistrationNumberUnique = _carRepository.GetAll().Any(x => x.RegistrationNumber == command.RegistrationNumber && x.Id != (CarId)command.Id);
+            bool isRegistrationNumberUnique = (await _carRepository.GetAllAsync())
+                .Any(x => x.RegistrationNumber == command.RegistrationNumber && x.Id != (CarId)command.Id);
+            
             if (isRegistrationNumberUnique)
             {
                 return false;
             }
 
-            Car carToUpdate = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.Id);
+            Car carToUpdate = (await _carRepository.GetAllAsync())
+                .SingleOrDefault(x => x.Id == (CarId)command.Id);
+
             if (carToUpdate is null)
             {
                 return false;
@@ -93,14 +99,16 @@ namespace FleetRent.Application.Services
             carToUpdate.ChangeColor(command.Color);
             carToUpdate.ChangeFuelType(command.FuelType);
 
-            _carRepository.Update(carToUpdate);
+            await _carRepository.UpdateAsync(carToUpdate);
 
             return true;
         }
 
-        public bool Deactivate(SetCarInactive command)
+        public async Task<bool> DeactivateAsync(SetCarInactive command)
         {
-            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.Id);
+            Car existingCar = (await _carRepository.GetAllAsync())
+                .SingleOrDefault(x => x.Id == (CarId)command.Id);
+
             if (existingCar is null)
             {
                 return false;
@@ -108,20 +116,23 @@ namespace FleetRent.Application.Services
 
             existingCar.ChangeActivity(false);
 
-            _carRepository.Update(existingCar);
+            await _carRepository.UpdateAsync(existingCar);
 
             return true;
         }
 
-        public bool StartHire(StartHire command)
+        public async Task<bool> StartHireAsync(StartHire command)
         {
-            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = (await _carRepository.GetAllAsync())
+                .SingleOrDefault(x => x.Id == (CarId)command.CarId);
+
             if (existingCar is null)
             {
                 return false;
             }
 
-            User existingUser = _userRepository.GetAll().SingleOrDefault(x => x.Id == (UserId)command.UserId);
+            User existingUser = (await _userRepository.GetAllAsync())
+                .SingleOrDefault(x => x.Id == (UserId)command.UserId);
             if (existingUser is null)
             {
                 return false;
@@ -132,14 +143,16 @@ namespace FleetRent.Application.Services
 
             existingCar.AddHire(hire);
 
-            _carRepository.Update(existingCar);
+            await _carRepository.UpdateAsync(existingCar);
 
             return true;
         }
 
-        public bool EndHire(EndHire command)
+        public async Task<bool> EndHireAsync(EndHire command)
         {
-            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = (await _carRepository.GetAllAsync())
+                .SingleOrDefault(x => x.Id == (CarId)command.CarId);
+
             if (existingCar is null)
             {
                 return false;
@@ -154,14 +167,16 @@ namespace FleetRent.Application.Services
             existingHire.ChangeEndMileage(command.EndMileage);
             existingHire.ChangeReturnDate(command.ReturnDate);
 
-            _carRepository.Update(existingCar);
+            await _carRepository.UpdateAsync(existingCar);
 
             return true;
         }
 
-        public bool RemoveHire(RemoveHire command)
+        public async Task<bool> RemoveHireAsync(RemoveHire command)
         {
-            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = (await _carRepository.GetAllAsync())
+                .SingleOrDefault(x => x.Id == (CarId)command.CarId);
+
             if (existingCar is null)
             {
                 return false;
@@ -176,20 +191,24 @@ namespace FleetRent.Application.Services
             existingCar.RemoveHire(existingHire);
             existingHire.ChangeActivity(false);
 
-            _carRepository.Update(existingCar);
+            await _carRepository.UpdateAsync(existingCar);
 
             return true;
         }
 
-        public bool StartReservation(StartReservation command)
+        public async Task<bool> StartReservationAsync(StartReservation command)
         {
-            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = (await _carRepository.GetAllAsync())
+                .SingleOrDefault(x => x.Id == (CarId)command.CarId);
+
             if (existingCar is null)
             {
                 return false;
             }
 
-            User existingUser = _userRepository.GetAll().SingleOrDefault(x => x.Id == (UserId)command.UserId);
+            User existingUser = (await _userRepository.GetAllAsync())
+                .SingleOrDefault(x => x.Id == (UserId)command.UserId);
+
             if (existingUser is null)
             {
                 return false;
@@ -198,7 +217,7 @@ namespace FleetRent.Application.Services
             Reservation reservation = new Reservation(Guid.NewGuid(), command.StartDate, command.EndDate, existingUser.Id);
             existingCar.AddReservation(reservation);
 
-            _carRepository.Update(existingCar);
+            await _carRepository.UpdateAsync(existingCar);
 
             return true;
         }
@@ -224,9 +243,11 @@ namespace FleetRent.Application.Services
         //     return true;
         // }
 
-        public bool RemoveReservation(RemoveReservation command)
+        public async Task<bool> RemoveReservationAsync(RemoveReservation command)
         {
-            Car existingCar = _carRepository.GetAll().SingleOrDefault(x => x.Id == (CarId)command.CarId);
+            Car existingCar = (await _carRepository.GetAllAsync())
+                .SingleOrDefault(x => x.Id == (CarId)command.CarId);
+
             if (existingCar is null)
             {
                 return false;
@@ -241,7 +262,7 @@ namespace FleetRent.Application.Services
             existingCar.RemoveReservation(existingReservation);
             existingReservation.ChangeActivity(false);
 
-            _carRepository.Update(existingCar);
+            await _carRepository.UpdateAsync(existingCar);
 
             return true;
         }

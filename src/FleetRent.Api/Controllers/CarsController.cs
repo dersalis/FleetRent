@@ -19,16 +19,16 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            IEnumerable<CarDto> cars = _carService.GetAll();
+            IEnumerable<CarDto> cars = await _carService.GetAllAsync();
             return Ok(cars);
         }
 
         [HttpGet("{id:guid}")]
-        public IActionResult GetById([FromRoute] Guid id)
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            CarDto car = _carService.GetById(id);
+            CarDto car = await _carService.GetByIdAsync(id);
             if (car is null)
             {
                 return NotFound();
@@ -37,9 +37,9 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateCar command)
+        public async Task<IActionResult> Create([FromBody] CreateCar command)
         {
-            Guid? id = _carService.Create(command);
+            Guid? id = await _carService.CreateAsync(command);
             if (id is null)
             {
                 return BadRequest();
@@ -48,11 +48,11 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult Update([FromRoute] Guid id, [FromBody] UpdateCar command)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateCar command)
         {
             command = command with { Id = id };
 
-            bool isUpdated = _carService.Update(command);
+            bool isUpdated = await _carService.UpdateAsync(command);
             if (!isUpdated)
             {
                 return NotFound();
@@ -61,11 +61,11 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPut("{id:guid}/deactivate")]
-        public IActionResult Deactivate([FromRoute] Guid id)
+        public async Task<IActionResult> Deactivate([FromRoute] Guid id)
         {
             SetCarInactive command = new SetCarInactive(id);
 
-            bool isDeleted = _carService.Deactivate(command);
+            bool isDeleted = await _carService.DeactivateAsync(command);
             if (!isDeleted)
             {
                 return NotFound();
@@ -74,9 +74,9 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPut("{id:guid}/start-hire")]
-        public IActionResult StartHire([FromRoute] Guid id, [FromBody] StartHire command)
+        public async Task<IActionResult> StartHire([FromRoute] Guid id, [FromBody] StartHire command)
         {
-            bool isStarted = _carService.StartHire(command with { CarId = id });
+            bool isStarted = await _carService.StartHireAsync(command with { CarId = id });
             if (!isStarted)
             {
                 return NotFound();
@@ -85,9 +85,9 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPut("{id:guid}/end-hire")]
-        public IActionResult EndHire([FromRoute] Guid id, [FromBody] EndHire command)
+        public async Task<IActionResult> EndHire([FromRoute] Guid id, [FromBody] EndHire command)
         {
-            bool isEnded = _carService.EndHire(command with { CarId = id });
+            bool isEnded = await _carService.EndHireAsync(command with { CarId = id });
             if (!isEnded)
             {
                 return NotFound();
@@ -96,9 +96,9 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPut("{id:guid}/remove-hire")]
-        public IActionResult RemoveHire([FromRoute] Guid id, [FromBody] RemoveHire command)
+        public async Task<IActionResult> RemoveHire([FromRoute] Guid id, [FromBody] RemoveHire command)
         {
-            bool isRemoved = _carService.RemoveHire(command with { CarId = id });
+            bool isRemoved = await _carService.RemoveHireAsync(command with { CarId = id });
             if (!isRemoved)
             {
                 return NotFound();
@@ -107,9 +107,9 @@ namespace FleetRent.Api.Controllers
         }
 
         [HttpPut("{id:guid}/start-reservation")]
-        public IActionResult StartReservation([FromRoute] Guid id, [FromBody] StartReservation command)
+        public async Task<IActionResult> StartReservation([FromRoute] Guid id, [FromBody] StartReservation command)
         {
-            bool isStarted = _carService.StartReservation(command with { CarId = id });
+            bool isStarted = await _carService.StartReservationAsync(command with { CarId = id });
             if (!isStarted)
             {
                 return NotFound();
@@ -129,9 +129,9 @@ namespace FleetRent.Api.Controllers
         // }
 
         [HttpPut("{id:guid}/remove-reservation")]
-        public IActionResult RemoveReservation([FromRoute] Guid id, [FromBody] RemoveReservation command)
+        public async Task<IActionResult> RemoveReservation([FromRoute] Guid id, [FromBody] RemoveReservation command)
         {
-            bool isRemoved = _carService.RemoveReservation(command with { CarId = id });
+            bool isRemoved = await _carService.RemoveReservationAsync(command with { CarId = id });
             if (!isRemoved)
             {
                 return NotFound();
